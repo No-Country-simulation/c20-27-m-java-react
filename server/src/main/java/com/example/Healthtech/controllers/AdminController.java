@@ -15,6 +15,7 @@ public class AdminController {
     @Autowired
     private AdminService adminService;
 
+    //busca a todos los pacientes
     @GetMapping
     public List<Admin> getAllAdmins() {
         return adminService.findAll();
