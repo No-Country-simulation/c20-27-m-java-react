@@ -1,4 +1,4 @@
-package com.nocountry.health_tech.models;
+package com.example.Healthtech.models;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;

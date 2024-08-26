@@ -1,4 +1,4 @@
-package com.nocountry.health_tech.repositories;
+package com.example.Healthtech.repositories;
 
 import com.nocountry.health_tech.models.Admin;
 

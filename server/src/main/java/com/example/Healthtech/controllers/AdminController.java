@@ -1,4 +1,4 @@
-package com.nocountry.health_tech.controllers;
+package com.example.Healthtech.controllers;
 import com.nocountry.health_tech.models.Admin;
 import com.nocountry.health_tech.services.AdminService;
 import org.springframework.beans.factory.annotation.Autowired;
