@@ -9,5 +9,4 @@ public class HealthtechApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(HealthtechApplication.class, args);
 	}
-
 }
