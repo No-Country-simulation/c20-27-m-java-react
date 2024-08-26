@@ -3,7 +3,7 @@ package com.example.Healthtech.services;
 import com.example.Healthtech.repositories.AdminRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import com.nocountry.health_tech.models.Admin;
+import com.example.Healthtech.models.Admin;
 
 import java.util.List;
 import java.util.Optional;
