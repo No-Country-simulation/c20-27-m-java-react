@@ -29,11 +29,12 @@ public class DoctorController {
         return doctorService.getDoctorById(id);
     }
 
-    @DeleteMapping("/{id}")
+    //Delete Fisico
+    /*@DeleteMapping("/{id}")
     public void deleteDoctor(@PathVariable Long id) {
         doctorService.deleteDoctor(id);
     }
-    /*
+
     @GetMapping("/{id}/appointments")
     public List<Doctor> getDoctorAppointments(@PathVariable Long id) {
         return doctorService.consultAppointments(id);
@@ -45,4 +46,18 @@ public class DoctorController {
     }
 
      */
+    @DeleteMapping("/{id}")
+    public void deleteDoctor(@PathVariable Long id) {
+        doctorService.deleteDoctor(id);
+    }
+
+    @GetMapping("/deleted")// Endpoint para obtener doctores eliminados
+    public List<Doctor> getDeletedDoctors() {
+        return doctorService.getDeletedDoctors();
+    }
+
+    @PutMapping("/restore/{id}")// Endpoint para restaurar un doctor eliminado
+    public void restoreDoctor(@PathVariable Long id) {
+        doctorService.restoreDoctor(id);
+    }
 }
