@@ -5,7 +5,7 @@ import com.example.Healthtech.models.consulta.validaciones.ValidarConsultas;
 import com.example.Healthtech.infra.errors.ValidarIntegridad;
 import java.util.List;
 
-public class AgendaConsultaService {
+public class "AgendaConsultaService {
 
     final PatientRepository patientRepository;
     //final MedicoRepository medicoRepository;
