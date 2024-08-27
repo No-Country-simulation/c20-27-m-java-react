@@ -20,6 +20,8 @@ public class Doctor {
     private String especialidad;
     private String email;
     private String telefono;
+    private boolean deleted = false; // Campo para el borrado lógico
+
 
 
     /*@OneToMany(mappedBy = "medico")

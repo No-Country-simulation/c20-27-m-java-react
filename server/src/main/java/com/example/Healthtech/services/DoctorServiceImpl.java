@@ -28,12 +28,12 @@ public class DoctorServiceImpl implements DoctorService {
     public Doctor saveDoctor(Doctor doctor) {
         return doctorRepository.save(doctor);
     }
-
+    /*
     @Override
     public void deleteDoctor(Long id) {
         doctorRepository.deleteById(id);
     }
-   /*
+
     @Override
     public List<Doctor> consultAppointments(Long doctorId) {
         Doctor doctor = getDoctorById(doctorId);
@@ -49,4 +49,27 @@ public class DoctorServiceImpl implements DoctorService {
     }
 
     */
+
+    @Override
+    public void deleteDoctor(Long id) {
+        Doctor doctor = getDoctorById(id);
+        if (doctor != null) {
+            doctor.setDeleted(true); // Marcar el doctor como eliminado
+            doctorRepository.save(doctor); // Guardar el cambio
+        }
+    }
+
+    @Override
+    public List<Doctor> getDeletedDoctors() {
+        return doctorRepository.findAllDeleted(); // Obtener todos los doctores eliminados
+    }
+
+    @Override
+    public void restoreDoctor(Long id) {
+        Doctor doctor = doctorRepository.findById(id).orElse(null);
+        if (doctor != null && doctor.isDeleted()) {
+            doctor.setDeleted(false); // Restaurar el doctor eliminado
+            doctorRepository.save(doctor); // Guardar el cambio
+        }
+    }
 }
