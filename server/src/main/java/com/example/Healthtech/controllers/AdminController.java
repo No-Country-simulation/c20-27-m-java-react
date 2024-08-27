@@ -1,6 +1,6 @@
-package com.nocountry.health_tech.controllers;
-import com.nocountry.health_tech.models.Admin;
-import com.nocountry.health_tech.services.AdminService;
+package com.example.Healthtech.controllers;
+import com.example.Healthtech.models.Admin;
+import com.example.Healthtech.services.AdminService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -15,6 +15,7 @@ public class AdminController {
     @Autowired
     private AdminService adminService;
 
+    //busca a todos los pacientes
     @GetMapping
     public List<Admin> getAllAdmins() {
         return adminService.findAll();

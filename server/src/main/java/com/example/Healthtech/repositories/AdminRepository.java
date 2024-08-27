@@ -1,6 +1,6 @@
-package com.nocountry.health_tech.repositories;
+package com.example.Healthtech.repositories;
 
-import com.nocountry.health_tech.models.Admin;
+import com.example.Healthtech.models.Admin;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
