@@ -1,4 +1,5 @@
-import styled from "styled-components";
+import React, { useEffect, useState } from 'react';
+import styled from 'styled-components';
 
 // Estilo para el contenedor de navegación
 const NavContainer = styled.nav`
@@ -35,22 +36,50 @@ const NavItem = styled.li`
     color: #f0f3f0;
   }
 `;
+interface Doctor {
+  id: number;
+  nombre: string;
+  apellido: string;
+  especialidad: string;
+  email: string;
+  telefono: string;
+  imagen: string;
+}
 
-const Navegacion = () => {
+interface NavegacionProps {
+  onEspecialidadChange: (especialidad: string) => void;
+}
+
+const Navegacion: React.FC<NavegacionProps> = ({ onEspecialidadChange }) => {
+  const [especialidades, setEspecialidades] = useState<string[]>([]);
+
+  useEffect(() => {
+    fetch('http://localhost:3001/doctores')
+      .then((response) => response.json())
+      .then((data: Doctor[]) => {
+        // Obtener las especialidades únicas
+        const especialidadesUnicas = [
+          ...new Set(data.map((doctor) => doctor.especialidad))
+        ];
+        setEspecialidades(especialidadesUnicas);
+      })
+      .catch((error) => console.error('Error al cargar las especialidades:', error));
+  }, []);
+
   return (
     <NavContainer>
       <NavList>
-        <NavItem>Todos</NavItem>
-        <NavItem>General</NavItem>
-        <NavItem>Cardiología</NavItem>
-        <NavItem>Dentista</NavItem>
-        <NavItem>Urología</NavItem>
-        <NavItem>Ginecología</NavItem>
-        <NavItem>Oftalmología</NavItem>
+        <NavItem onClick={() => onEspecialidadChange('Todos')}>Todos</NavItem>
+        {especialidades.map((especialidad) => (
+          <NavItem key={especialidad} onClick={() => onEspecialidadChange(especialidad)}>
+            {especialidad}
+          </NavItem>
+        ))}
       </NavList>
     </NavContainer>
   );
 };
 
 export default Navegacion;
+
 
