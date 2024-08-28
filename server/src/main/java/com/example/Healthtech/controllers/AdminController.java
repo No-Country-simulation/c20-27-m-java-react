@@ -1,6 +1,6 @@
 package com.example.Healthtech.controllers;
-import com.nocountry.health_tech.models.Admin;
-import com.nocountry.health_tech.services.AdminService;
+import com.example.Healthtech.models.Admin;
+import com.example.Healthtech.services.AdminService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/api/admins")
+@RequestMapping("/admins")
 public class AdminController {
 
     @Autowired
