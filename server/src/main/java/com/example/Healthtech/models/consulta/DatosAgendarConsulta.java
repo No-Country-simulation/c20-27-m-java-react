@@ -1,7 +1,6 @@
 package com.example.Healthtech.models.consulta;
 
-import com.example.Healthtech.models.Patient;
-import jakarta.persistence.*;
+
 import jakarta.validation.constraints.Future;
 import jakarta.validation.constraints.NotNull;
 
@@ -16,6 +15,5 @@ public record DatosAgendarConsulta(
         @Future
         LocalDateTime fecha,
         String videoLlamada
-
 ) {
 }
