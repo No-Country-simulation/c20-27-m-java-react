@@ -43,8 +43,9 @@ public class ConsultaController {
         return ResponseEntity.ok(consulta);
 
     }
+
     @GetMapping
-    public ResponseEntity<Page<DatosDetalleConsulta>> obtenerConsultasActivas(@PageableDefault(size = 10, sort = "nombre") Pageable paginacion) {
+    public ResponseEntity<Page<DatosDetalleConsulta>> obtenerConsultasActivas(@PageableDefault(size = 10, sort = "fecha") Pageable paginacion) {
         Page<DatosDetalleConsulta> consultasActivas = agendaConsultaService.obtenerConsultasActivas(paginacion);
         return ResponseEntity.ok(consultasActivas);
     }
