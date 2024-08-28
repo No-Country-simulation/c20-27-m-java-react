@@ -1,5 +1,8 @@
+import Medicos from "./Pages/Medicos";
+
+
 function App() {
-  return <h1>Hello World</h1>
+  return <Medicos/>;
 }
 
-export default App
+export default App;
