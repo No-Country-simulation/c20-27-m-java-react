@@ -34,6 +34,7 @@ public class PatientController {
         return ResponseEntity.ok().build();
     }
 
+    // refactorizar para el borrado logico
     @DeleteMapping("/delete/{id}")
     public void deletePatient(@PathVariable Long id){
         patientService.deletePatientById(id);
