@@ -40,6 +40,11 @@ public class DoctorServiceImpl implements DoctorService {
     public Doctor findDoctorById(Long id) {
         return doctorRepository.findById(id).orElseThrow();
     }
+
+    @Override
+    public Doctor findDoctorByApellido(String apellido) {
+        return doctorRepository.findByApellido(apellido);
+    }
     /*
     @Override
     public void deleteDoctor(Long id) {

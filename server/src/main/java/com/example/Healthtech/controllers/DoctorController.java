@@ -4,6 +4,7 @@ import com.example.Healthtech.models.Doctor;
 import com.example.Healthtech.services.DoctorService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -21,6 +22,18 @@ public class DoctorController {
     public List<Doctor> getDoctors() {
         return doctorService.getAllDoctors();
     }
+
+    @GetMapping("/findby/{apellido}")
+    public ResponseEntity<?> getDoctorByApellido(@PathVariable String apellido) {
+        Doctor doctor = doctorService.findDoctorByApellido(apellido);
+        if (doctor != null) {
+            return ResponseEntity.ok(doctor);
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .body("Doctor no encontrado");
+        }
+    }
+
 
     @PostMapping("/createDoctor")
     public ResponseEntity<Doctor> createDoctor(@Valid @RequestBody Doctor doctor) {
