@@ -19,4 +19,6 @@ public interface DoctorRepository extends JpaRepository<Doctor, Long> {
 
     @Query("SELECT d FROM Doctor d WHERE d.deleted = true")
     List<Doctor> findAllDeleted(); // Método para consultar doctores eliminados
+
+    Doctor findByApellido(String apellido);
 }
