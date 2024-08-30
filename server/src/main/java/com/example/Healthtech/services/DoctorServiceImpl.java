@@ -28,6 +28,18 @@ public class DoctorServiceImpl implements DoctorService {
     public Doctor saveDoctor(Doctor doctor) {
         return doctorRepository.save(doctor);
     }
+
+
+
+    @Override
+    public List<Doctor> saveAll(List<Doctor> doctors) {
+        return doctorRepository.saveAll(doctors);
+    }
+
+    @Override
+    public Doctor findDoctorById(Long id) {
+        return doctorRepository.findById(id).orElseThrow();
+    }
     /*
     @Override
     public void deleteDoctor(Long id) {

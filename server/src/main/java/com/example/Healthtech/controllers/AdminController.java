@@ -1,6 +1,8 @@
 package com.example.Healthtech.controllers;
 import com.example.Healthtech.models.Admin;
+import com.example.Healthtech.models.Doctor;
 import com.example.Healthtech.services.AdminService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -15,7 +17,7 @@ public class AdminController {
     @Autowired
     private AdminService adminService;
 
-    //busca a todos los pacientes
+    //busca a todos los admins
     @GetMapping
     public List<Admin> getAllAdmins() {
         return adminService.findAll();
@@ -28,12 +30,13 @@ public class AdminController {
     }
 
     @PostMapping("/createadmin")
-    public Admin createAdmin(@RequestBody Admin admin) {
+    public Admin createAdmin(@Valid @RequestBody Admin admin) {
         return adminService.save(admin);
     }
 
+    //POST para agregar muchos Admins a la vez
     @PostMapping("/createadmins")
-    public List<Admin> createAdmins(@RequestBody List<Admin> admins) {
+    public List<Admin> createAdmins(@Valid @RequestBody List<Admin> admins) {
         return adminService.saveAll(admins);
     }
 
@@ -51,7 +54,7 @@ public class AdminController {
             return ResponseEntity.notFound().build();
         }
     }
-
+    /*
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteAdmin(@PathVariable Long id) {
         if (adminService.findById(id).isPresent()) {
@@ -85,4 +88,18 @@ public class AdminController {
         }
     }
      */
+    @DeleteMapping("/{id}")
+    public void deleteAdmin(@PathVariable Long id) {
+        adminService.deleteAdmin(id);
+    }
+
+    @GetMapping("/deleted")// Endpoint para obtener admin eliminados
+    public List<Admin> getDeletedAdmins() {
+        return adminService.getDeletedAdmins();
+    }
+
+    @PutMapping("/restore/{id}")// Endpoint para restaurar un admin eliminado
+    public void restoreAdmin(@PathVariable Long id) {
+        adminService.restoreAdmin(id);
+    }
 }
