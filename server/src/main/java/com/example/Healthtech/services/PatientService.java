@@ -1,46 +1,22 @@
 package com.example.Healthtech.services;
 
 import com.example.Healthtech.models.Patient;
-import com.example.Healthtech.repositories.PatientRepository;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-@Service
-public class PatientService {
+public interface PatientService {
 
-    @Autowired
-    PatientRepository patientRepository;
+    List<Patient> allPatients();
+    Patient searchPatientById(Long patient_id);
 
-    public List<Patient> allPatients() {
-        return patientRepository.findAll();
-    }
+    //borrado fisico
+    void deletePatientById(Long patient_id);
 
-    public void create(Patient patient) {
-
-        patientRepository.save(patient);
-    }
-
-    public Patient searhPatientById(Long patient_id) {
-        return patientRepository.findById(patient_id).get();
-    }
-
-    public void deletePatientById(Long patient_id) {
-        patientRepository.findById(patient_id)
-                .ifPresent(patientRepository::delete);
-    }
-
-    public Patient updatePatientById(Long id_patient, Patient updatedPatient) {
-        return patientRepository.findById(id_patient)
-                .map(patient -> {
-                    patient.setName(updatedPatient.getName());
-                    patient.setLastName(updatedPatient.getLastName());
-                    patient.setEmail(updatedPatient.getEmail());
-                    patient.setTelephone(updatedPatient.getTelephone());
-                    patient.setAddress(updatedPatient.getAddress());
-                    return patientRepository.save(patient);
-                })
-                .orElseThrow(()-> new RuntimeException("Patient not found"));
-    }
+    void deletePatient(Long id);
+    //void deletePatientById(Long id); //para el borrado directo
+    List<Patient> getDeletedPatients();
+    void restorePatient(Long id);
+    //List<Patient> saveAllPatients(List<Patient> patients);
+    Patient updatePatientById(Long patient_id, Patient updatedPatient);
+    Patient create(Patient patient);
 }
