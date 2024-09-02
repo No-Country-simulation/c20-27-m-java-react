@@ -3,17 +3,14 @@ package com.example.Healthtech.models.consulta;
 import com.example.Healthtech.models.Doctor;
 import com.example.Healthtech.models.Patient;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.time.LocalDateTime;
 
 
 @Table(name = "consultas")
 @Entity(name = "consulta")
-@Getter
+@Data
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode(of = "id")

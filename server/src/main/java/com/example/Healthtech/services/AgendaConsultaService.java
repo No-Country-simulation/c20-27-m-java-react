@@ -1,6 +1,8 @@
 package com.example.Healthtech.services;
 
+import com.example.Healthtech.models.Doctor;
 import com.example.Healthtech.models.consulta.Consulta;
+import com.example.Healthtech.models.consulta.DatosActualizarCita;
 import com.example.Healthtech.models.consulta.DatosAgendarConsulta;
 import com.example.Healthtech.models.consulta.DatosDetalleConsulta;
 import com.example.Healthtech.repositories.DoctorRepository;
@@ -24,14 +26,12 @@ public class AgendaConsultaService {
 
     public AgendaConsultaService(
             PatientRepository patientRepository, DoctorRepository doctorRepository,
-            ConsultaRepository consultaRepository, List<ValidarConsultas> validadores)
-    {
+            ConsultaRepository consultaRepository, List<ValidarConsultas> validadores) {
         this.patientRepository = patientRepository;
         this.doctorRepository = doctorRepository;
         this.consultaRepository = consultaRepository;
         this.validadores = validadores;
     }
-
 
     public DatosDetalleConsulta agendar(DatosAgendarConsulta datos) {
         var paciente = patientRepository.findById(datos.idPatient())
@@ -54,9 +54,34 @@ public class AgendaConsultaService {
         Page<Consulta> consultas = consultaRepository.findByActivoTrue(paginacion);
         return consultas.map(DatosDetalleConsulta::new);
     }
+
     public DatosDetalleConsulta obtenerConsultaPorId(Long id) {
         var consulta = consultaRepository.findById(id)
                 .orElseThrow(() -> new ValidarIntegridad("Consulta no agendada."));
         return new DatosDetalleConsulta(consulta);
+    }
+
+    public DatosDetalleConsulta actualizarCita(DatosActualizarCita datos) {
+
+        Consulta consultaExistente = consultaRepository.findById(datos.id())
+                .orElseThrow(() -> new RuntimeException("Consulta no encontrada"));
+
+        if (datos.fecha() != null) {
+            consultaExistente.setFecha(datos.fecha());
+        }
+
+        if (datos.videoLlamada() != null) {
+            consultaExistente.setVideoLlamada(datos.videoLlamada());
+        }
+
+        if (datos.doctor().getIdMedico() != null) {
+            Doctor nuevoDoctor = doctorRepository.findById(datos.doctor().getIdMedico())
+                    .orElseThrow(() -> new RuntimeException("Doctor no encontrado"));
+            consultaExistente.setDoctor(nuevoDoctor);
+        }
+
+        consultaRepository.save(consultaExistente);
+
+        return new DatosDetalleConsulta(consultaExistente);
     }
 }

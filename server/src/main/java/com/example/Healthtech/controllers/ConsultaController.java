@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 import java.net.URI;
+import java.util.Optional;
 
 import com.example.Healthtech.models.consulta.*;
 import com.example.Healthtech.services.AgendaConsultaService;
@@ -49,6 +50,15 @@ public class ConsultaController {
         Page<DatosDetalleConsulta> consultasActivas = agendaConsultaService.obtenerConsultasActivas(paginacion);
         return ResponseEntity.ok(consultasActivas);
     }
+
+
+    @PutMapping
+    @Transactional
+    public ResponseEntity<DatosDetalleConsulta> actualizarCita(@RequestBody @Valid DatosActualizarCita datos){
+        DatosDetalleConsulta consultaActualizada = agendaConsultaService.actualizarCita(datos);
+        return ResponseEntity.ok(consultaActualizada);
+    }
+
 }
 
 
