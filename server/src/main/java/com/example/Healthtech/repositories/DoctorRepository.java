@@ -14,9 +14,11 @@ public interface DoctorRepository extends JpaRepository<Doctor, Long> {
     @Query("SELECT d FROM Doctor d WHERE d.deleted = false")
     List<Doctor> findAllActive(); // Método para obtener todos los doctores no eliminados
 
-    @Query("SELECT d FROM Doctor d WHERE d.id = :id AND d.deleted = false")
+    @Query("SELECT d FROM Doctor d WHERE d.idMedico = :id AND d.deleted = false")
     Doctor findByIdAndNotDeleted(@Param("id") Long id); // Método para obtener un doctor por ID que no esté eliminado
 
     @Query("SELECT d FROM Doctor d WHERE d.deleted = true")
     List<Doctor> findAllDeleted(); // Método para consultar doctores eliminados
+
+    Doctor findByApellido(String apellido);
 }
