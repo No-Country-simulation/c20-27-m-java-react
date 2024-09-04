@@ -2,6 +2,8 @@ package com.example.Healthtech.controllers;
 
 import com.example.Healthtech.models.Patient;
 import com.example.Healthtech.services.PatientService;
+import com.example.Healthtech.services.PatientServiceImpl;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -15,33 +17,48 @@ import java.util.List;
 public class PatientController {
 
     @Autowired
-    PatientService patientService;
+    private PatientService patientService;
 
+    @CrossOrigin
     @GetMapping("/all")
     public ResponseEntity<List<Patient>> getAll(){
         List<Patient> List = patientService.allPatients();
         return ResponseEntity.ok().body(List);
     }
 
+    @PostMapping("/create")
+    public ResponseEntity<?> createPatient(@RequestBody Patient patient) {
+        return ResponseEntity.ok().body(patientService.create(patient));
+    }
+
     @GetMapping("/{patient_id}")
     public ResponseEntity<Patient> patientById(@PathVariable Long patient_id){
-        return ResponseEntity.ok().body(patientService.searhPatientById(patient_id));
+        return ResponseEntity.ok().body(patientService.searchPatientById(patient_id));
     }
 
-    @PostMapping("/create")
-    public ResponseEntity<Patient> createPatient(@RequestBody Patient patient){
-        patientService.create(patient);
-        return ResponseEntity.ok().build();
-    }
-
-    // refactorizar para el borrado logico
-    @DeleteMapping("/delete/{id}")
+    // borrado fisico
+    /*@DeleteMapping("/delete/{id}")
     public void deletePatient(@PathVariable Long id){
         patientService.deletePatientById(id);
+    }*/
+
+    @DeleteMapping("/delete/{patient_id}")
+    public void deletePatient(@PathVariable Long patient_id){
+        patientService.deletePatient(patient_id);
     }
 
-    @PutMapping("/update/{id_patient}")
-    public ResponseEntity<Patient> updatePatient(@PathVariable Long id_patient,@RequestBody Patient updatedPatient){
-        return ResponseEntity.ok().body(patientService.updatePatientById(id_patient,updatedPatient));
+    @GetMapping("/deleted")
+    public List<Patient> getDeletedPatients(){
+        return patientService.getDeletedPatients();
+    }
+
+    @PutMapping("/restore/{patient_id}")
+    public void restorePatient(@PathVariable Long patient_id){
+        patientService.restorePatient(patient_id);
+    }
+
+    @PutMapping("/update/{patient_id}")
+    public ResponseEntity<Patient> updatePatient(@PathVariable Long patient_id,@RequestBody @Valid Patient updatedPatient){
+        return ResponseEntity.ok().body(patientService.updatePatientById(patient_id,updatedPatient));
     }
 }
