@@ -2,13 +2,13 @@ import { useState, useEffect } from "react"
 import { Doctor } from "@/components/Modal"
 
 export const useFetchDoctor = (username: string) => {
-  const [data, setData] = useState<Doctor | null>(null)
+  const [data, setData] = useState<Doctor[]>([])
   const [loading, setLoading] = useState<boolean>(false)
   const [error, setError] = useState<Error | null>(null)
 
   useEffect(() => {
     if (username.trim() === "") {
-      setData(null)
+      setData([])
       setLoading(false)
       setError(null)
       return
@@ -24,7 +24,7 @@ export const useFetchDoctor = (username: string) => {
           throw new Error("Network response was not ok")
         }
         const data: Doctor = await response.json()
-        setData(data)
+        setData([data])
       } catch (err) {
         setError(new Error((err as Error).message))
       } finally {
@@ -32,9 +32,7 @@ export const useFetchDoctor = (username: string) => {
       }
     }
 
-    if (username) {
-      fetchData()
-    }
+    fetchData()
   }, [username])
 
   return [data, loading, error] as const
