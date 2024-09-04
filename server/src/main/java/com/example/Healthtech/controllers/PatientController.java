@@ -27,9 +27,8 @@ public class PatientController {
     }
 
     @PostMapping("/create")
-    public ResponseEntity<Patient> createPatient(@RequestBody @Valid Patient patient) {
-        Patient createdPatient = patientService.create(patient);
-        return ResponseEntity.ok(createdPatient);
+    public ResponseEntity<?> createPatient(@RequestBody Patient patient) {
+        return ResponseEntity.ok().body(patientService.create(patient));
     }
 
     @GetMapping("/{patient_id}")

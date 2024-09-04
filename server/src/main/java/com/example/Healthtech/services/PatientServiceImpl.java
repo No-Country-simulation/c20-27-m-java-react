@@ -1,8 +1,10 @@
 package com.example.Healthtech.services;
 
+import com.example.Healthtech.infra.errors.UserInvalidException;
 import com.example.Healthtech.models.Patient;
 import com.example.Healthtech.repositories.PatientRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -18,15 +20,33 @@ public class PatientServiceImpl implements PatientService{
         return patientRepository.findAll();
     }
 
-    /*public void create(Patient patient) {
-        patientRepository.save(patient);
-    }*/
-
-    public Patient create(Patient patient) {
+    public ResponseEntity<?> create(Patient patient) {
         try {
-            return patientRepository.save(patient);
+            validatePatient(patient); //valido los datos
+            patientRepository.save(patient);//guardo el paciente
+            return ResponseEntity.ok("El perfil Paciente ha sido creado con éxito.");
+        } catch (UserInvalidException e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
         } catch (Exception e) {
-            throw new RuntimeException("Failed to create patient", e);
+            return ResponseEntity.internalServerError().body("Ha ocurrido un error inesperado.");
+        }
+    }
+    //metodo interno de validacion de atributos de paciente
+    private void validatePatient(Patient patient) {
+        if (patient.getName() == null || patient.getName().isEmpty()) {
+            throw new UserInvalidException("El nombre es obligatorio");
+        }
+        if (patient.getLastName() == null || patient.getLastName().isEmpty()) {
+            throw new UserInvalidException("El apellido es obligatorio");
+        }
+        if (patient.getEmail() == null || patient.getEmail().isEmpty()) {
+            throw new UserInvalidException("El email es obligatorio");
+        }
+        if (patient.getTelephone() == null || patient.getTelephone().isEmpty()) {
+            throw new UserInvalidException("El teléfono es obligatorio");
+        }
+        if (patient.getAddress() == null || patient.getAddress().isEmpty()) {
+            throw new UserInvalidException("La dirección es obligatoria");
         }
     }
 
@@ -40,7 +60,6 @@ public class PatientServiceImpl implements PatientService{
     public void deletePatientById(Long patient_id) {
         patientRepository.findById(patient_id)
                 .ifPresent(patientRepository::delete);
-
     }
 
     @Override
@@ -65,12 +84,6 @@ public class PatientServiceImpl implements PatientService{
             patientRepository.save(patient);
         }
     }
-
-    /*@Override
-    public List<Patient> saveAllPatients(List<Patient> patients) {
-        List<Patient> patientList = patientRepository.findAll();
-        return patientRepository.saveAll(patientList);
-    }*/
 
     public Patient updatePatientById(Long id_patient, Patient updatedPatient) {
         return patientRepository.findById(id_patient)

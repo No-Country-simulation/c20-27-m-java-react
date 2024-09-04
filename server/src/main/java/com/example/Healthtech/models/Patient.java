@@ -1,6 +1,7 @@
 package com.example.Healthtech.models;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -21,14 +22,17 @@ public class Patient {
     private String name;
     @NotNull
     private String lastName;
-    @NotNull
+
+    @NotNull @Email @Column(unique = true)
     private String email;
+
     @NotNull
     private String telephone;
     @NotNull
     private String address;
 
     private boolean deleted = false;
+
 
     public Patient(String name, String lastName, String email, String telephone, String address) {
         this.name = name;
