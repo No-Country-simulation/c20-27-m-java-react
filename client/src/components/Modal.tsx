@@ -16,7 +16,7 @@ const Modal = ({ doctor }: ModalProps) => {
     <Link
       to={`/doctor/${doctor.name}`}
       key={doctor.id}
-      className="absolute top-[125px] z-50 flex h-[88px] w-[90%] rounded-xl bg-[#F3F4F6] pl-2 pt-2"
+      className="absolute top-[50px] z-50 flex h-[88px] w-full rounded-xl bg-[#F3F4F6] pl-2 pt-2"
     >
       <figure>
         <img src={doctor.avatar} alt={doctor.name} />
