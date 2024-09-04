@@ -14,23 +14,27 @@ public class Patient {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    public int id_patient;
 
-    public String nombre;
+   
 
-    public String apellido;
+    private Long id_patient;
 
-    public String email;
 
-    public String telefono;
+    private String name;
 
-    public String direccion;
+    private String lastName;
 
-    public Patient(String nombre, String email, String apellido, String telefono, String direccion) {
-        this.nombre = nombre;
+    private String email;
+
+    private String telephone;
+
+    private String address;
+
+    public Patient(String name,  String lastName, String email, String telephone, String address) {
+        this.name = name;
+        this.lastName = lastName;
         this.email = email;
-        this.apellido = apellido;
-        this.telefono = telefono;
-        this.direccion = direccion;
+        this.telephone = telephone;
+        this.address = address;
     }
 }
