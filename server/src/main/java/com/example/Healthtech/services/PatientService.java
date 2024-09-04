@@ -34,11 +34,11 @@ public class PatientService {
     public Patient updatePatientById(Long id_patient, Patient updatedPatient) {
         return patientRepository.findById(id_patient)
                 .map(patient -> {
-                    patient.setNombre(updatedPatient.getNombre());
-                    patient.setApellido(updatedPatient.getApellido());
+                    patient.setName(updatedPatient.getName());
+                    patient.setLastName(updatedPatient.getLastName());
                     patient.setEmail(updatedPatient.getEmail());
-                    patient.setTelefono(updatedPatient.getTelefono());
-                    patient.setDireccion(updatedPatient.getDireccion());
+                    patient.setTelephone(updatedPatient.getTelephone());
+                    patient.setAddress(updatedPatient.getAddress());
                     return patientRepository.save(patient);
                 })
                 .orElseThrow(()-> new RuntimeException("Patient not found"));
