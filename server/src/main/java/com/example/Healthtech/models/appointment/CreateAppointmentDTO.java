@@ -1,19 +1,18 @@
-package com.example.Healthtech.models.consulta;
-
+package com.example.Healthtech.models.appointment;
 
 import jakarta.validation.constraints.Future;
 import jakarta.validation.constraints.NotNull;
 
 import java.time.LocalDateTime;
 
-public record DatosAgendarConsulta(
+public record CreateAppointmentDTO(
         Long id,
-        Long idMedico,
+        Long doctorId,
         @NotNull
-        Long idPatient,
+        Long patientId,
         @NotNull
         @Future
-        LocalDateTime fecha,
-        String videoLlamada
+        LocalDateTime dateTime,
+        String videoCallLink
 ) {
 }
