@@ -14,6 +14,7 @@ import SearchIcon from "./search.svg"
 import LocationIconDark from "./locationdark.svg"
 import BellIcon from "./bell.svg"
 import DotIcon from "./dot.svg"
+import ArrowIcon from "./arrow.svg"
 
 export {
   DentistryIcon,
@@ -32,4 +33,5 @@ export {
   LocationIconDark,
   BellIcon,
   DotIcon,
+  ArrowIcon
 }
