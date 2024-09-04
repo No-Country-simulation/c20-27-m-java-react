@@ -12,7 +12,7 @@ const AllCategories = () => {
       {isRootPath && (
         <>
           <Footer />
-          <p>avbdabdvhbadhb</p>
+          <p>Sección de todas las categorías</p>
         </>
       )}
       <Outlet />
