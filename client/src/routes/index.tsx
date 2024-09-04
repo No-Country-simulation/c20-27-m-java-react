@@ -1,12 +1,13 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom"
 import Home from "@/views/Home"
+import Error from "@/views/Error"
 import AllCategories from "@/views/AllCategories"
 import Location from "@/views/Location"
 import Calendar from "@/views/Calendar"
 import Profile from "@/views/Profile"
 import DoctorProfile from "@/views/DoctorProfile"
 import InfoSpecialty from "@/views/InfoSpecialty"
-import Error from "@/views/Error"
+import AllDoctors from "@/views/AllDoctors"
 
 const router = createBrowserRouter([
   {
@@ -17,6 +18,10 @@ const router = createBrowserRouter([
   {
     path: "/doctor/:name",
     element: <DoctorProfile />,
+  },
+  {
+    path: "/all-doctors",
+    element: <AllDoctors />
   },
   {
     path: "/all-categories",
