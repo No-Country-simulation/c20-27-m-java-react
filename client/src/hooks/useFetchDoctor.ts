@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react"
-import { Doctor } from "@/components/Modal"
+import { Doctor } from "../components/Modal"
 
 export const useFetchDoctor = (username: string) => {
   const [data, setData] = useState<Doctor[]>([])
@@ -19,7 +19,7 @@ export const useFetchDoctor = (username: string) => {
       setError(null)
 
       try {
-        const response = await fetch(`https://api.github.com/users/${username}`)
+        const response = await fetch(`http://localhost:8080/doctors/findby/${username}`)
         if (!response.ok) {
           throw new Error("Network response was not ok")
         }

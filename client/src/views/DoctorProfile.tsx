@@ -1,12 +1,13 @@
 import { useParams } from "react-router-dom"
-import Footer from "@/components/Footer"
+import Footer from "../components/Footer"
+import React from "react"
 
 const DoctorProfile = () => {
-  const { name } = useParams<{ name: string }>()
+  const { lastname } = useParams<{ lastname: string }>()
 
   return (
     <>
-      <h1>Perfil del doctor: {name}</h1>
+      <h1>Perfil del doctor: {lastname}</h1>
       <Footer />
     </>
   )

@@ -1,13 +1,14 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom"
-import Home from "@/views/Home"
-import Error from "@/views/Error"
-import AllCategories from "@/views/AllCategories"
-import Location from "@/views/Location"
-import Calendar from "@/views/Calendar"
-import Profile from "@/views/Profile"
-import DoctorProfile from "@/views/DoctorProfile"
-import InfoSpecialty from "@/views/InfoSpecialty"
-import AllDoctors from "@/views/AllDoctors"
+import Home from "../views/Home"
+import Error from "../views/Error"
+import AllCategories from "../views/AllCategories"
+import Location from "../views/Location"
+import Calendar from "../views/Calendar"
+import Profile from "../views/Profile"
+import DoctorProfile from "../views/DoctorProfile"
+import InfoSpecialty from "../views/InfoSpecialty"
+import AllDoctors from "../views/AllDoctors"
+import React from "react"
 
 const router = createBrowserRouter([
   {

@@ -1,5 +1,6 @@
 import { useState, ChangeEvent } from "react"
-import { SearchIcon } from "@/assets/icons/index"
+import { SearchIcon } from "../assets/icons/index"
+import React from "react"
 
 interface SearchProps {
   onSearch: (query: string) => void
