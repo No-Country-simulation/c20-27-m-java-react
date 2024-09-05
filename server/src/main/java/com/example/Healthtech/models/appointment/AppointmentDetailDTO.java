@@ -1,7 +1,6 @@
 package com.example.Healthtech.models.appointment;
 
 
-
 import java.time.LocalDateTime;
 
 public record AppointmentDetailDTO(
@@ -14,8 +13,8 @@ public record AppointmentDetailDTO(
     public AppointmentDetailDTO(Appointment appointment) {
         this(
                 appointment.getId(),
-                appointment.getPatient().getPatient_id(),
-                appointment.getDoctor().getIdMedico(),
+                appointment.getPatient() != null ? appointment.getPatient().getPatient_id() : null,
+                appointment.getDoctor() != null ? appointment.getDoctor().getIdMedico() : null,
                 appointment.getDateTime(),
                 appointment.getVideoCallLink()
         );
