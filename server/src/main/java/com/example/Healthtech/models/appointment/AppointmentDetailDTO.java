@@ -14,7 +14,7 @@ public record AppointmentDetailDTO(
     public AppointmentDetailDTO(Appointment appointment) {
         this(
                 appointment.getId(),
-                appointment.getPatient().getId_patient(),
+                appointment.getPatient().getPatient_id(),
                 appointment.getDoctor().getIdMedico(),
                 appointment.getDateTime(),
                 appointment.getVideoCallLink()
