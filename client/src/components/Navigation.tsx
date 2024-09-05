@@ -1,12 +1,13 @@
+import React from "react"
 import { useEffect, useState } from "react"
 
 interface Doctor {
   id: number
-  nombre: string
-  apellido: string
-  especialidad: string
+  name: string
+  lastname: string
+  speciality: string
   email: string
-  telefono: string
+  telephone: string
   imagen: string
 }
 
@@ -17,23 +18,20 @@ interface NavigationProps {
 const Navigation = ({ onSpecialtyChange }: NavigationProps) => {
   const [specialties, setSpecialties] = useState<string[]>([])
 
-  useEffect(() => {
-    const fetchDoctors = async () => {
-      try {
-        const response = await fetch(`http://localhost:3001/doctors`)
+  async function fetchDoctor() {
+    try {
+        const response = await fetch(`http://localhost:8080/doctors/findby/${apellido}`);
         if (!response.ok) {
-          throw new Error("Network response was not ok")
+            throw new Error('Doctor not found');
         }
-        const data: Doctor[] = await response.json()
-        const uniqueSpecialties = [...new Set(data.map(doctor => doctor.especialidad))]
-        setSpecialties(uniqueSpecialties)
-      } catch (err) {
-        console.error("Doctor not found: ", err)
-      }
+        const data = await response.json();
+        // Procesar los datos
+    } catch (error) {
+        console.error('Error fetching doctors:', error);
     }
+}
 
-    fetchDoctors()
-  }, [])
+
 
   return (
     <nav className="mx-auto mb-[20px] mt-[30px] max-w-full overflow-x-auto rounded-lg px-[30px] py-[15px]">

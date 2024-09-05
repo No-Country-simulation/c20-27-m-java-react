@@ -1,6 +1,6 @@
 package com.example.Healthtech.services;
 
-import com.example.Healthtech.infra.errors.UserInvalidException;
+import com.example.Healthtech.exception.UserInvalidException;
 import com.example.Healthtech.models.Patient;
 import com.example.Healthtech.repositories.PatientRepository;
 import org.springframework.beans.factory.annotation.Autowired;

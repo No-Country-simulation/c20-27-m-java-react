@@ -6,7 +6,6 @@ import java.time.LocalDateTime;
 public record UpdateAppointmentDTO(
         @NotNull Long id,
         Long doctorId,
-        LocalDateTime dateTime,
-        String videoCallLink
+        LocalDateTime dateTime
 ) {
 }

@@ -1,7 +1,8 @@
 import { useState, ChangeEvent } from "react"
-import { SearchIcon } from "@/assets/icons"
-import { useFetchDoctor } from "@/hooks/useFetchDoctor"
-import Modal from "@/components/Modal"
+import { SearchIcon } from "../assets/icons"
+import { useFetchDoctor } from "../hooks/useFetchDoctor"
+import Modal from "../components/Modal"
+import React from "react"
 
 interface ExtendedFormEvent extends ChangeEvent<HTMLInputElement> {}
 
