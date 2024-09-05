@@ -34,10 +34,10 @@ const Navigation = ({ onSpecialtyChange }: NavigationProps) => {
 
 
   return (
-    <nav className="mx-auto mb-[20px] mt-[30px] rounded-lg bg-[#697cb5] px-[30px] py-[15px] shadow-2.5xl">
-      <ul className="m-0 flex list-none flex-wrap justify-around gap-[10px] p-0">
+    <nav className="mx-auto mb-[20px] mt-[30px] max-w-full overflow-x-auto rounded-lg px-[30px] py-[15px]">
+      <ul className="flex list-none flex-wrap justify-center gap-[10px] p-0 m-0">
         <li
-          className="cursor-pointer text-base font-semibold text-[#333] transition-colors duration-[0.3s] ease-in *:hover:text-[#f0f3f0]"
+          className="cursor-pointer font-inter font-semibold text-[16px] text-[#333] transition-colors duration-300 ease-in-out hover:bg-[#1C2A3A] hover:text-[#f0f3f0] px-[20px] py-[10px] rounded-full bg-[#f0f3f0] border-2 border-black max-w-[150px] text-center"
           onClick={() => onSpecialtyChange("All")}
         >
           All
