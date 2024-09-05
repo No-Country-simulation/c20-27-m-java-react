@@ -9,7 +9,7 @@ public record DatosDetalleConsulta(
         String videoLlamada
 ) {
     public DatosDetalleConsulta(Consulta consulta) {
-        this(consulta.getId(), consulta.getPatient().getId_patient(), consulta.getDoctor().getIdMedico(),
+        this(consulta.getId(), consulta.getPatient().getId(), consulta.getDoctor().getIdMedico(),
                 consulta.getFecha(), consulta.getVideoLlamada());
     }
 }
