@@ -1,9 +1,10 @@
 import { useState } from "react"
-import { ArrowIcon } from "@/assets/icons/index"
-import SearchDoctors from "@/components/SearchDoctors"
-import Navigation from "@/components/Navigation"
-import DoctorsList from "@/components/DoctorsList"
+import { ArrowIcon } from "../assets/icons/index"
+import SearchDoctors from "../components/SearchDoctors"
+import Navigation from "../components/Navigation"
+import DoctorsList from "../components/DoctorsList"
 import { Link } from "react-router-dom"
+import React from "react"
 
 const AllDoctors = () => {
   const [selectedSpecialty, setSelectedSpecialty] = useState<string>("All")
