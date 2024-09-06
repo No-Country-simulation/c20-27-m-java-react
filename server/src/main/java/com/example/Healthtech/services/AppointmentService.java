@@ -10,13 +10,13 @@ import com.example.Healthtech.exception.ValidarIntegridad;
 import com.example.Healthtech.repositories.DoctorRepository;
 import com.example.Healthtech.repositories.PatientRepository;
 import com.example.Healthtech.repositories.AppointmentRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.UUID;
+import java.util.concurrent.atomic.AtomicReference;
 
 @Service
 public class AppointmentService {
@@ -68,13 +68,16 @@ public class AppointmentService {
         return "https://meet.jit.si/" + roomId;
     }
 
-    private void notifyParticipants(Appointment appointment){
-
+    private void notifyParticipants(Appointment appointment) {
         String doctorEmail = appointment.getDoctor().getEmail();
+        String doctorName = appointment.getDoctor().getNombre();  // Asegúrate de que tu modelo tenga un método getName()
         String patientEmail = appointment.getPatient().getEmail();
-        emailService.sendNotification(doctorEmail, appointment.getVideoCallLink(), appointment.getDateTime());
-        emailService.sendNotification(patientEmail, appointment.getVideoCallLink(), appointment.getDateTime());
+        String patientName = appointment.getPatient().getName();  // Asegúrate de que tu modelo tenga un método getName()
+
+        emailService.sendNotification(doctorEmail, appointment.getVideoCallLink(), appointment.getDateTime(), doctorName);
+        emailService.sendNotification(patientEmail, appointment.getVideoCallLink(), appointment.getDateTime(), patientName);
     }
+
     public Page<AppointmentDetailDTO> getActiveAppointments(Pageable pageable) {
         Page<Appointment> appointments = appointmentRepository.findByActiveTrue(pageable);
         return appointments.map(AppointmentDetailDTO::new);
@@ -108,5 +111,19 @@ public class AppointmentService {
         appointmentRepository.save(existingAppointment);
 
         return new AppointmentDetailDTO(existingAppointment);
+    }
+
+    public Appointment findAppointmentById(Long id) {
+        return appointmentRepository.findById(id)
+                .orElseThrow(() -> new ValidarIntegridad("Appointment not found."));
+    }
+
+    public void save(Appointment appointment) {
+        appointmentRepository.save(appointment);
+    }
+
+    public Page<AppointmentDetailDTO> getDeactiveAppointments(Pageable pageable) {
+        Page<Appointment> canceledAppointment = appointmentRepository.findByActiveFalse(pageable);
+        return canceledAppointment.map(AppointmentDetailDTO::new);
     }
 }

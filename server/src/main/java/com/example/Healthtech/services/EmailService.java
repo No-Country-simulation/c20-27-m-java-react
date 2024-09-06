@@ -6,6 +6,8 @@ import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 
 @Service
 public class EmailService {
@@ -13,14 +15,20 @@ public class EmailService {
     @Autowired
     private JavaMailSender emailSender;
 
-    public void sendNotification(String recipientEmail, String videoCallLink, LocalDateTime dataTime) {
+    private static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
+
+    public void sendNotification(String recipientEmail, String videoCallLink, LocalDateTime dateTime, String participantName) {
 
         SimpleMailMessage message = new SimpleMailMessage();
         message.setTo(recipientEmail);
-        message.setSubject("Cita programada");
-        message.setText("Tiene una cita programada para el día: " + dataTime + ".\n\n" +
-                "Enlace para la videollamada:\n " + videoCallLink + "\n\nSaludos." );
+        message.setSubject("Confirmación de Cita Agendada");
+
+        // Formatear la fecha
+        String formattedDateTime = dateTime.format(DATE_TIME_FORMATTER);
+
+        message.setText("Hola " + participantName + ",\n\n" +
+                "Tiene una cita programada para el  " + formattedDateTime + " hrs.\n\n\n" +
+                "Enlace para la videollamada:\n\n " + videoCallLink + "\n\n\nSaludos." );
 
         emailSender.send(message);
-    }
-}
+    }}
