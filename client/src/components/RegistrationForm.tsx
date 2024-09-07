@@ -1,25 +1,16 @@
-
-import Input from './RegisterEntry';
-
-// Usa rutas relativas basadas en la estructura del proyecto
-import userIcon from '../assets/icons/user.svg';
-import lastnameIcon from '../assets/icons/lastname.svg';
-import mailIcon from '../assets/icons/mail.svg';
-import telephoneIcon from '../assets/icons/telephone.svg';
-import addressIcon from '../assets/icons/address.svg';
+import Input from "@/components/RegisterEntry"
+import { UserIcon, LastNameIcon, MailIcon, TelephoneIcon, AddressIcon } from "@/assets/icons"
 
 const Formulario = () => {
   return (
-    <form className="flex flex-col w-full max-w-xs gap-4 mt-5">
-      <Input iconSrc={userIcon} placeholder="Your Name" type="text" id="nombre" />
-      <Input iconSrc={lastnameIcon} placeholder="Your Lastname" type="text" id="apellido" />
-      <Input iconSrc={mailIcon} placeholder="Your Email" type="email" id="email" />
-      <Input iconSrc={telephoneIcon} placeholder="Your Phone Number" type="text" id="telefono" />
-      <Input iconSrc={addressIcon} placeholder="Your Address" type="text" id="direccion" />
+    <form className="mt-5 flex w-full max-w-xs flex-col gap-4">
+      <Input iconSrc={UserIcon} placeholder="Your Name" type="text" id="nombre" />
+      <Input iconSrc={LastNameIcon} placeholder="Your Lastname" type="text" id="apellido" />
+      <Input iconSrc={MailIcon} placeholder="Your Email" type="email" id="email" />
+      <Input iconSrc={TelephoneIcon} placeholder="Your Phone Number" type="text" id="telefono" />
+      <Input iconSrc={AddressIcon} placeholder="Your Address" type="text" id="direccion" />
     </form>
-  );
-};
+  )
+}
 
-export default Formulario;
-
-
+export default Formulario
