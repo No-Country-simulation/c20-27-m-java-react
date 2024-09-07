@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 
 @Service
 public class PatientServiceImpl implements PatientService{
@@ -27,8 +28,6 @@ public class PatientServiceImpl implements PatientService{
             return ResponseEntity.ok("El perfil Paciente ha sido creado con éxito.");
         } catch (UserInvalidException e) {
             return ResponseEntity.badRequest().body(e.getMessage());
-        } catch (Exception e) {
-            return ResponseEntity.internalServerError().body("Ha ocurrido un error inesperado.");
         }
     }
     //metodo interno de validacion de atributos de paciente
@@ -52,7 +51,7 @@ public class PatientServiceImpl implements PatientService{
 
     @Override
     public Patient searchPatientById(Long patient_id) {
-        return patientRepository.findById(patient_id).get();
+            return patientRepository.findById(patient_id).orElseThrow();
     }
 
     //borrado fisico
@@ -95,6 +94,6 @@ public class PatientServiceImpl implements PatientService{
                     patient.setAddress(updatedPatient.getAddress());
                     return patientRepository.save(patient);
                 })
-                .orElseThrow(()-> new RuntimeException("Patient not found"));
+                .orElseThrow();
     }
 }
