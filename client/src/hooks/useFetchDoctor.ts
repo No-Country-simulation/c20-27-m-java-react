@@ -15,27 +15,27 @@ export const useFetchDoctor = (apellido: string) => {
     }
 
     const fetchData = async () => {
-      setLoading(true)
-      setError(null)
+      setLoading(true);
+      setError(null);
 
       try {
         const response = await fetch(
           `https://c20-27-m-java-react-production.up.railway.app/doctors/findby/${apellido}`,
         )
         if (!response.ok) {
-          throw new Error("Network response was not ok")
+          throw new Error("Network response was not ok");
         }
-        const data: Doctor = await response.json()
-        setData([data])
+        const data: Doctor = await response.json();
+        setData([data]);
       } catch (err) {
-        setError(new Error((err as Error).message))
+        setError(new Error((err as Error).message));
       } finally {
-        setLoading(false)
+        setLoading(false);
       }
-    }
+    };
 
     fetchData()
   }, [apellido])
 
-  return [data, loading, error] as const
-}
+  return [data, loading, error] as const;
+};
