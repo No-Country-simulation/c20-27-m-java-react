@@ -10,4 +10,6 @@ import org.springframework.stereotype.Repository;
 public interface AppointmentRepository extends JpaRepository<Appointment, Long> {
 
     Page<Appointment> findByActiveTrue(Pageable pageable);
+
+    Page<Appointment> findByActiveFalse(Pageable pageable);
 }

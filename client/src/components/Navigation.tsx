@@ -1,4 +1,3 @@
-import React from "react"
 import { useEffect, useState } from "react"
 
 interface Doctor {
@@ -20,24 +19,22 @@ const Navigation = ({ onSpecialtyChange }: NavigationProps) => {
 
   async function fetchDoctor() {
     try {
-        const response = await fetch(`http://localhost:8080/doctors/findby/${apellido}`);
-        if (!response.ok) {
-            throw new Error('Doctor not found');
-        }
-        const data = await response.json();
-        // Procesar los datos
+      const response = await fetch(`http://localhost:8080/doctors/findby/${apellido}`)
+      if (!response.ok) {
+        throw new Error("Doctor not found")
+      }
+      const data = await response.json()
+      // Procesar los datos
     } catch (error) {
-        console.error('Error fetching doctors:', error);
+      console.error("Error fetching doctors:", error)
     }
-}
-
-
+  }
 
   return (
     <nav className="mx-auto mb-[20px] mt-[30px] max-w-full overflow-x-auto rounded-lg px-[30px] py-[15px]">
-      <ul className="flex list-none flex-wrap justify-center gap-[10px] p-0 m-0">
+      <ul className="m-0 flex list-none flex-wrap justify-center gap-[10px] p-0">
         <li
-          className="cursor-pointer font-inter font-semibold text-[16px] text-[#333] transition-colors duration-300 ease-in-out hover:bg-[#1C2A3A] hover:text-[#f0f3f0] px-[20px] py-[10px] rounded-full bg-[#f0f3f0] border-2 border-black max-w-[150px] text-center"
+          className="max-w-[150px] cursor-pointer rounded-full border-2 border-black bg-[#f0f3f0] px-[20px] py-[10px] text-center font-inter text-[16px] font-semibold text-[#333] transition-colors duration-300 ease-in-out hover:bg-[#1C2A3A] hover:text-[#f0f3f0]"
           onClick={() => onSpecialtyChange("All")}
         >
           All

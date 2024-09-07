@@ -1,6 +1,5 @@
 import { useParams } from "react-router-dom"
-import Footer from "../components/Footer"
-import React from "react"
+import Footer from "@/components/Footer"
 
 const DoctorProfile = () => {
   const { lastname } = useParams<{ lastname: string }>()

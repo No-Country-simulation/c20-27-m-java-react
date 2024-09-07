@@ -21,7 +21,7 @@ const router = createBrowserRouter([
   },
   {
     path: "/all-doctors",
-    element: <AllDoctors />
+    element: <AllDoctors />,
   },
   {
     path: "/all-categories",
@@ -71,7 +71,7 @@ const router = createBrowserRouter([
   },
   {
     path: "/profile",
-    element: < Register/>,
+    element: <Register />,
   },
 ])
 

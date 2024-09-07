@@ -5,12 +5,11 @@ import com.example.Healthtech.models.appointment.Appointment;
 import com.example.Healthtech.models.appointment.AppointmentDetailDTO;
 import com.example.Healthtech.models.appointment.CreateAppointmentDTO;
 import com.example.Healthtech.models.appointment.UpdateAppointmentDTO;
+import com.example.Healthtech.exception.UserInvalidException;
 import com.example.Healthtech.models.appointment.validaciones.ValidarConsultas;
-import com.example.Healthtech.exception.ValidarIntegridad;
 import com.example.Healthtech.repositories.DoctorRepository;
 import com.example.Healthtech.repositories.PatientRepository;
 import com.example.Healthtech.repositories.AppointmentRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -42,11 +41,11 @@ public class AppointmentService {
 
     public AppointmentDetailDTO schedule(CreateAppointmentDTO dto) {
         var patient = patientRepository.findById(dto.patientId())
-                .orElseThrow(() -> new ValidarIntegridad("Patient not found."));
+                .orElseThrow(() -> new UserInvalidException("Patient not found."));
 
         var doctor = dto.doctorId() != null ?
                 doctorRepository.findById(dto.doctorId())
-                        .orElseThrow(() -> new ValidarIntegridad("Doctor not found."))
+                        .orElseThrow(() -> new UserInvalidException("Doctor not found."))
                 : null;
 
 
@@ -68,13 +67,16 @@ public class AppointmentService {
         return "https://meet.jit.si/" + roomId;
     }
 
-    private void notifyParticipants(Appointment appointment){
-
+    private void notifyParticipants(Appointment appointment) {
         String doctorEmail = appointment.getDoctor().getEmail();
+        String doctorName = appointment.getDoctor().getNombre();  // Asegúrate de que tu modelo tenga un método getName()
         String patientEmail = appointment.getPatient().getEmail();
-        emailService.sendNotification(doctorEmail, appointment.getVideoCallLink(), appointment.getDateTime());
-        emailService.sendNotification(patientEmail, appointment.getVideoCallLink(), appointment.getDateTime());
+        String patientName = appointment.getPatient().getName();  // Asegúrate de que tu modelo tenga un método getName()
+
+        emailService.sendNotification(doctorEmail, appointment.getVideoCallLink(), appointment.getDateTime(), doctorName);
+        emailService.sendNotification(patientEmail, appointment.getVideoCallLink(), appointment.getDateTime(), patientName);
     }
+
     public Page<AppointmentDetailDTO> getActiveAppointments(Pageable pageable) {
         Page<Appointment> appointments = appointmentRepository.findByActiveTrue(pageable);
         return appointments.map(AppointmentDetailDTO::new);
@@ -83,7 +85,7 @@ public class AppointmentService {
     public AppointmentDetailDTO getAppointmentById(Long id) {
 
         var appointment = appointmentRepository.findById(id)
-                .orElseThrow(() -> new ValidarIntegridad("Appointment not found."));
+                .orElseThrow(() -> new UserInvalidException("Appointment not found."));
         return new AppointmentDetailDTO(appointment);
     }
 
@@ -93,7 +95,7 @@ public class AppointmentService {
         }
 
         Appointment existingAppointment = appointmentRepository.findById(dto.id())
-                .orElseThrow(() -> new ValidarIntegridad("Appointment not found"));
+                .orElseThrow(() -> new UserInvalidException("Appointment not found"));
 
         if (dto.dateTime() != null) {
             existingAppointment.setDateTime(dto.dateTime());
@@ -101,12 +103,26 @@ public class AppointmentService {
 
         if (dto.doctorId() != null) {
             Doctor newDoctor = doctorRepository.findById(dto.doctorId())
-                    .orElseThrow(() -> new ValidarIntegridad("Doctor not found"));
+                    .orElseThrow(() -> new UserInvalidException("Doctor not found"));
             existingAppointment.setDoctor(newDoctor);
         }
 
         appointmentRepository.save(existingAppointment);
 
         return new AppointmentDetailDTO(existingAppointment);
+    }
+
+    public Appointment findAppointmentById(Long id) {
+        return appointmentRepository.findById(id)
+                .orElseThrow(() -> new UserInvalidException("Appointment not found."));
+    }
+
+    public void save(Appointment appointment) {
+        appointmentRepository.save(appointment);
+    }
+
+    public Page<AppointmentDetailDTO> getDeactiveAppointments(Pageable pageable) {
+        Page<Appointment> canceledAppointment = appointmentRepository.findByActiveFalse(pageable);
+        return canceledAppointment.map(AppointmentDetailDTO::new);
     }
 }

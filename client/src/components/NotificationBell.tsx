@@ -1,5 +1,4 @@
-import React from "react"
-import { BellIcon, DotIcon } from "../assets/icons"
+import { BellIcon, DotIcon } from "@/assets/icons"
 import { useState } from "react"
 
 const NotificationBell = () => {
