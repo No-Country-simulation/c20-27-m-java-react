@@ -8,7 +8,7 @@ interface NavIcon {
 }
 
 const navLinks: NavIcon[] = [
-  { label: "Home", href: "/", icon: HomeIcon },
+  { label: "Home", href: "/home", icon: HomeIcon },
   { label: "Location", href: "/location", icon: LocationIcon },
   { label: "Calendar", href: "/calendar", icon: CalendarIcon },
   { label: "User", href: "/profile", icon: UserIcon },
