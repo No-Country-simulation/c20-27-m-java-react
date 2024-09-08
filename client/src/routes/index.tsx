@@ -8,12 +8,17 @@ import DoctorProfile from "@/views/DoctorProfile"
 import InfoSpecialty from "@/views/InfoSpecialty"
 import AllDoctors from "@/views/AllDoctors"
 import Register from "@/views/Register"
+import Loading from "@/views/Loading"
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <Home />,
+    element: <Loading />,
     errorElement: <Error />,
+  },
+  {
+    path: "/home",
+    element: <Home />,
   },
   {
     path: "/doctor/:name",
