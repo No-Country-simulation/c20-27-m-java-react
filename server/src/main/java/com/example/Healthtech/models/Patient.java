@@ -1,11 +1,14 @@
 package com.example.Healthtech.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import java.util.List;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -15,7 +18,7 @@ import lombok.NoArgsConstructor;
 public class Patient {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long patient_id;
 
     @NotNull
@@ -30,6 +33,13 @@ public class Patient {
     private String telephone;
     @NotNull
     private String address;
+
+
+    // Relación uno a muchos con la entidad MedicalHistory
+    @OneToMany(mappedBy = "patient", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonIgnore // Se ñade esta anotación para evitar la serialización recursiva
+    private List<MedicalHistory> medicalHistories;
+
 
     private boolean deleted = false;
 

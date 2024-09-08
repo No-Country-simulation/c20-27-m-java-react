@@ -1,4 +1,3 @@
-// import Header from "@/components/Header"
 import Categories from "@/components/Categories"
 import SearchInput from "@/components/SearchInput"
 import HeroImage from "@/components/HeroImage"

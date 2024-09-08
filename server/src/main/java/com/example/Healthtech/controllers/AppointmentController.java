@@ -47,11 +47,26 @@ public class AppointmentController {
         Page<AppointmentDetailDTO> activeAppointments = appointmentService.getActiveAppointments(pagination);
         return ResponseEntity.ok(activeAppointments);
     }
+    @GetMapping("/canceled")
+    public ResponseEntity<Page<AppointmentDetailDTO>> getCanceledAppointments(@PageableDefault(size=10, sort = "dateTime") Pageable pagination) {
+        Page<AppointmentDetailDTO> canceledAppointments = appointmentService.getDeactiveAppointments(pagination);
+        return ResponseEntity.ok(canceledAppointments);
+    }
+
 
     @PutMapping
     @Transactional
     public ResponseEntity<AppointmentDetailDTO> updateAppointment(@RequestBody @Valid UpdateAppointmentDTO datos) {
         AppointmentDetailDTO updatedAppointment = appointmentService.updateAppointment(datos);
         return ResponseEntity.ok(updatedAppointment);
+    }
+
+    @DeleteMapping("/canceled/{id}")
+    @Transactional
+    public ResponseEntity<?> cancelAppointment(@PathVariable Long id){
+        var appointment = appointmentService.findAppointmentById(id);
+        appointment.deactivate();
+        appointmentService.save(appointment);
+        return ResponseEntity.noContent().build();
     }
 }

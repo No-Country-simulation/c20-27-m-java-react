@@ -1,5 +1,5 @@
 import { useState } from "react"
-import { ArrowIcon } from "@/assets/icons/index"
+import { ArrowIcon } from "@/assets/icons"
 import SearchDoctors from "@/components/SearchDoctors"
 import Navigation from "@/components/Navigation"
 import DoctorsList from "@/components/DoctorsList"
@@ -13,18 +13,16 @@ const AllDoctors = () => {
   }
 
   return (
-    <section className="mt-4"> 
-    <div className="flex items-center mb-3">
-      <Link to="/" className="mr-auto">
-      <figure> 
-        <img src={ArrowIcon} alt="" />
-      </figure>
-      </Link>
-      <h2 className="text-xl text-[#374151] font-semibold mr-auto">
-        All Doctors
-      </h2>
-    </div>
-      <SearchDoctors onSearch={handleSpecialtyChange}/>
+    <section className="mt-4">
+      <div className="mb-3 flex items-center">
+        <Link to="/" className="mr-auto">
+          <figure>
+            <img src={ArrowIcon} alt="" />
+          </figure>
+        </Link>
+        <h2 className="mr-auto text-xl font-semibold text-[#374151]">All Doctors</h2>
+      </div>
+      <SearchDoctors onSearch={handleSpecialtyChange} />
       <Navigation onSpecialtyChange={handleSpecialtyChange} />
       <DoctorsList selectedSpecialty={selectedSpecialty} />
     </section>
