@@ -1,20 +1,25 @@
 package com.example.Healthtech.services;
 
+import com.example.Healthtech.exception.ResourceNotFoundException;
 import com.example.Healthtech.exception.UserInvalidException;
+import com.example.Healthtech.models.MedicalHistory;
 import com.example.Healthtech.models.Patient;
+import com.example.Healthtech.repositories.MedicalHistoryRepository;
 import com.example.Healthtech.repositories.PatientRepository;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.NoSuchElementException;
 
 @Service
 public class PatientServiceImpl implements PatientService{
 
     @Autowired
     PatientRepository patientRepository;
+    @Autowired
+    MedicalHistoryRepository medicalHistoryRepository;
 
     @Override
     public List<Patient> allPatients() {
@@ -95,5 +100,24 @@ public class PatientServiceImpl implements PatientService{
                     return patientRepository.save(patient);
                 })
                 .orElseThrow();
+    }
+    @Override
+    public MedicalHistory addMedicalHistory(Long patientId, MedicalHistory medicalHistory) {
+        // Busca al paciente por ID
+        Patient patient = patientRepository.findById(patientId)
+                .orElseThrow(() -> new ResourceNotFoundException("Paciente no encontrado con el ID: " + patientId));
+
+        // Asocia el historial médico al paciente encontrado
+        medicalHistory.setPatient(patient);
+
+        // Guarda el historial médico en la base de datos
+        return medicalHistoryRepository.save(medicalHistory);
+    }
+
+    @Override
+    public List<MedicalHistory> getMedicalHistoriesByPatient(Long patientId) {
+        Patient patient = patientRepository.findById(patientId)
+                .orElseThrow(() -> new RuntimeException("Patient not found"));
+        return patient.getMedicalHistories();
     }
 }
