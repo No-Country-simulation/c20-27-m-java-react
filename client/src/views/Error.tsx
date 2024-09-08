@@ -4,7 +4,7 @@ const Error = () => {
   return (
     <>
       <h2>PAGINA NO ENCONTRADA</h2>
-      <Link to="/">Go to home</Link>
+      <Link to="/home">Go to home</Link>
     </>
   )
 }

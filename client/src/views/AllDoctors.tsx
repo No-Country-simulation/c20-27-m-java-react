@@ -15,7 +15,7 @@ const AllDoctors = () => {
   return (
     <section className="mt-4">
       <div className="mb-3 flex items-center">
-        <Link to="/" className="mr-auto">
+        <Link to="/home" className="mr-auto">
           <figure>
             <img src={ArrowIcon} alt="" />
           </figure>
