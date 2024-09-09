@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom"
-import ModalBackground from "@/components/ModalBackground"
+import RegisterBackground from "@/components/RegisterBackground"
 import Formulario from "@/components/RegistrationForm"
 import Button from "@/components/Button"
 import logoAzul from "@/assets/logoAzul.png"
@@ -13,12 +13,12 @@ const Register = () => {
   }
 
   return (
-    <ModalBackground>
-      <div className="relative flex flex-col items-center rounded-lg bg-white p-5 shadow-xl">
+    <RegisterBackground>
+      <div className="relative flex flex-col items-center rounded-lg bg-white p-4">
         <button onClick={closeModal} className="absolute right-4 top-4 p-2">
           <img src={CloseIcon} alt="Close" className="h-6 w-6" />
         </button>
-        <img src={logoAzul} alt="Logo" className="mx-auto block h-auto max-w-full" />
+        <img src={logoAzul} alt="Logo" className="mx-auto block h-auto max-w-full mt-3 mb-3" />
         <h1 className="mb-1 text-center text-lg font-semibold text-gray-800">
           <span className="text-gray-600">Health</span> <span className="text-gray-800">Tech</span>
         </h1>
@@ -27,8 +27,9 @@ const Register = () => {
         <Formulario />
         <Button label="Crear perfil" />
       </div>
-    </ModalBackground>
+    </RegisterBackground>
   )
 }
 
 export default Register
+
