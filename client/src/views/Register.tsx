@@ -9,7 +9,7 @@ const Register = () => {
   const navigate = useNavigate()
 
   const closeModal = () => {
-    navigate("/")
+    navigate("/home")
   }
 
   return (
