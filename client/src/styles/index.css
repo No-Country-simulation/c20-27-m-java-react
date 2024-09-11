@@ -4,7 +4,7 @@
 
 html,
 body {
-  font-family: theme(fontFamily.inter);
+  font-family: 'Inter'; 
 }
 
 #root {
@@ -12,3 +12,4 @@ body {
   max-width: 90rem;
   margin-inline: auto;
 }
+
