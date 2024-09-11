@@ -1,78 +1,507 @@
-HealthTech está diseñada para facilitar y optimizar la gestión de citas entre pacientes y profesionales de la salud.
-Este sistema digital permite a los usuarios reservar, modificar o cancelar turnos médicos de manera rápida y eficiente, directamente desde sus dispositivos móviles sin necesidad de moverse de sus hogares.
-Además, los médicos podrán gestionar sus agendas de manera organizada, evitando la sobrecarga de citas y garantizando un mejor flujo de atención.
-
-Con una interfaz intuitiva y muy fácil de usar, HealthTech ofrece funciones clave como la búsqueda de especialistas, disponibilidad horaria, y opciones de videollamada para consultas virtuales. A su vez, integra una base de datos segura que protege la información personal y médica de los usuarios, cumpliendo con los más altos estándares de seguridad y privacidad.
-
-Este desarrollo responde a la necesidad creciente de digitalizar procesos médicos, mejorar la experiencia del paciente y optimizar los recursos de los profesionales de salud, asegurando una atención más eficiente y accesible.
-
----------------------------------------------------------------------
-
-Endpoints doctores:
-
-- Listado de doctores: https://c20-27-m-java-react-production.up.railway.app/doctors
-
-- Creación de perfil de doctor: https://c20-27-m-java-react-production.up.railway.app/doctors/createDoctor
-
-- Actualizar perfil de doctor por ID: https://c20-27-m-java-react-production.up.railway.app/doctors/{id}
-
-- Búsqueda de doctor por ID: https://c20-27-m-java-react-production.up.railway.app/doctors/{id}
-
-- Borrar perfil de médico: https://c20-27-m-java-react-production.up.railway.app/doctors/{id}
-
-- Retención de perfil de doctor borrado: https://c20-27-m-java-react-production.up.railway.app/doctors/deleted
-
-- Restauración del perfil borrado: https://c20-27-m-java-react-production.up.railway.app/doctors/restore/{id}
-
--------------------------------------------
-Endpoints pacientes:
-
-- Listado de pacientes: https://c20-27-m-java-react-production.up.railway.app/patients/all
-
-- Registro de pacientes: https://c20-27-m-java-react-production.up.railway.app/patients/create
-
-- Actualización de datos del paciente: https://c20-27-m-java-react-production.up.railway.app/patients/update/{patient_id}
-
-- Búsqueda de paciente por ID: https://c20-27-m-java-react-production.up.railway.app/patients/{patient_id}
-
-- Borrado de paciente por ID: https://c20-27-m-java-react-production.up.railway.app/patients/{patient_id}
-
-- Retencion de paciente borrado: https://c20-27-m-java-react-production.up.railway.app/patients/deleted
-
-- Restauración del paciente borrado: https://c20-27-m-java-react-production.up.railway.app/patients/restore/{patient_id}
-
-- Historial médico del paciente (post y get): https://c20-27-m-java-react-production.up.railway.app/patients/{id}/medical-histories
-
--------------------------------------------
-Endpoints Admin:
-
-- Registro de Admin individual: https://c20-27-m-java-react-production.up.railway.app/admins/createadmin
-
-- Registro de varios admins a la vez: https://c20-27-m-java-react-production.up.railway.app/admins/createadmins
-
-- Obtener un listado de admins: https://c20-27-m-java-react-production.up.railway.app/admins
-
-- Buscar admin por ID: https://c20-27-m-java-react-production.up.railway.app/admins/{id}
-
-- Actualización de datos de admin: https://c20-27-m-java-react-production.up.railway.app/admins/{id}
-
-- Borrado de perfil de admin: https://c20-27-m-java-react-production.up.railway.app/admins/{id}
-
-- Retención de perfil de admin borrado: https://c20-27-m-java-react-production.up.railway.app/admins/deleted
-
-- Restauración de perfil de admin borrado: https://c20-27-m-java-react-production.up.railway.app/admins/restore/{id}
-
--------------------------------------------
-Enpoints de citas medicas:
-
-- Creación de una nueva cita: https://c20-27-m-java-react-production.up.railway.app/appointments
-
-- Obtención del listado de citas activas: https://c20-27-m-java-react-production.up.railway.app/appointments
-
-- Obtención del listado de citas canceladas: https://c20-27-m-java-react-production.up.railway.app/appointments/canceled
-
-- Búsqueda individual de cita cancelada : https://c20-27-m-java-react-production.up.railway.app/appointments/canceled/{id}
-
-- Busqueda de cita por ID: https://c20-27-m-java-react-production.up.railway.app/appointment/{id}
-
-- Actualización del registro de citas: https://c20-27-m-java-react-production.up.railway.app/appointments
+- Endpoints Doctores:
+  - Registro/s:
+    - URL: /doctors/createDoctor (registro de un solo perfil)
+    - URL: /doctors/createDoctors (registro de varios perfiles a la vez)
+    - Método: POST
+    - Descripción: Se ingresan los atributos correspondientes para la creación del perfil y su registro en base de datos.
+    - Cuerpo de solicitud:
+    ```
+    {
+        "nombre": "Susana",
+        "apellido": "López",
+        "especialidad":"Oftalmologa",
+        "email": "susana.oft@mail.com",
+        "telefono": "5411 6521-4587",
+        "direccion": "siempreviva 569"
+    }
+    ```
+    ----------------------------------------------------
+  - Listado:
+    - URL: /doctors
+    - Método: GET
+    - Descripción: Se muestra un listado de todos los doctores registrados en la base de datos.
+    - Cuerpo de solicitud: ninguno
+    - Respuesta exitosa:
+      Código 200 OK
+    ```
+    [
+      {
+        "idMedico": 1,
+        "nombre": "John",
+        "apellido": "Doe",
+        "especialidad": "Cardiology",
+        "email": "john.doe@example.com",
+        "telefono": "+1-555-1234",
+        "deleted": false
+      },
+      {
+        "idMedico": 2,
+        "nombre": "Pedro",
+        "apellido": "Garcia",
+        "especialidad": "Endocrinologo",
+        "email": "pedrogarcia@example.com",
+        "telefono": "+1-555-1234",
+        "deleted": false
+      }
+    ]
+    ```
+    --------------------------------
+  - Búsqueda:
+    - URL: /doctors/{id}
+    - Método: GET
+    - Descripción: Se ingresan el n° de id para realizar búsqueda de un perfil determinado.
+    - Solicitud: .../doctors/1 (El "1" corresponde al n° de id de registro en bd.)
+    - Respuesta exitosa: Código 200 OK
+    ```
+    {
+    "idMedico": 1,
+    "nombre": "John",
+    "apellido": "Doe",
+    "especialidad": "Cardiology",
+    "email": "john.doe@example.com",
+    "telefono": "+1-555-1234",
+    "deleted": false
+    }
+    ```
+    --------------------------------
+  - Actualizar perfil:
+    - URL: /doctors/{id}
+    - Método: PUT
+    - Descripción: Se ingresan el n° de id para realizar búsqueda del perfil para realizar la operación.
+    - Solicitud: .../doctors/1
+    ```
+    {
+      "nombre": "Nuevo Nombre",
+      "apellido": "Nuevo Apellido",
+      "especialidad": "Nueva Especialidad",
+      "email": "Nuevo.mail@mail.com",
+      "telefono": "+1 5555-5555"
+    }
+    ```
+    - Respuesta exitosa: Código 200 OK
+    ```
+    {
+    "idMedico": 1,
+    "nombre": "Nuevo Nombre",
+    "apellido": "Nuevo Apellido",
+    "especialidad": "Nueva Especialidad",
+    "email": "Nuevo.mail@mail.com",
+    "telefono": "+1 5555-5555"
+    "deleted": false
+    }
+    ```
+    -----------------------------------
+  - Borrado:
+    - URL: /doctors/{id}
+    - Método: DELETE
+    - Descripción: Se ingresan el n° de id para realizar búsqueda del perfil a borrar.
+    - Solicitud: .../doctors/1
+    - Respuesta exitosa: Código 200 OK
+    ```
+      {
+        "idMedico": 1,
+        "nombre": "John",
+        "apellido": "Doe",
+        "especialidad": "Cardiology",
+        "email": "john.doe@example.com",
+        "telefono": "+1-555-1234",
+        "deleted": true
+      }
+    ```
+    ---------------------------------
+  - Búsqueda de perfil borrado:
+    - URL: /doctors/deleted/{id}
+    - Método: GET
+    - Descripción: Se ingresan el n° de id para realizar búsqueda de un perfil determinado.
+    - Solicitud: .../doctors/deleted/1
+    - Respuesta exitosa: Código 200 OK
+    ```
+      {
+        "idMedico": 1,
+        "nombre": "John",
+        "apellido": "Doe",
+        "especialidad": "Cardiology",
+        "email": "john.doe@example.com",
+        "telefono": "+1-555-1234",
+        "deleted": true
+      }
+    ```
+  ----------------------------------------
+  - Restauración de perfil borrado:
+    - URL: /doctors/restore/{id}
+    - Método: PUT
+    - Descripción: Se ingresan el n° de id para realizar búsqueda de un perfil determinado y restaurarlo.
+    - Solicitud: .../doctors/restore/1 
+    - Respuesta exitosa: Código 200 OK
+    ```
+      {
+        "idMedico": 1,
+        "nombre": "John",
+        "apellido": "Doe",
+        "especialidad": "Cardiology",
+        "email": "john.doe@example.com",
+        "telefono": "+1-555-1234",
+        "deleted": false
+      }
+    ```
+----------------------------------------------------
+- Enpoints Pacientes:
+  - Registro:
+    - URL: /patients/create (registro de un solo perfil)
+    - Método: POST
+    - Descripción: Se ingresan los atributos correspondientes para la creación del perfil y su registro en base de datos.
+    - Cuerpo de solicitud:
+      ```
+      {
+        "name": "Laura",
+        "lastName": "Perez",
+        "email": "Laura45@mail.com",
+        "telephone": "54 11 3158-6547",
+        "address": "Avenida Prueba 547 5° piso, departamento B"
+      }
+      ```
+  -----------------------------------------
+  - Listado:
+    - URL: /patients/all
+    - Método: GET
+    - Descripción: Se muestra un listado de todos los perfiles registrados en base de datos.
+    - Cuerpo de solicitud: ninguno
+    - Respuesta exitosa: Código 200 OK
+      ```
+      [
+        {
+          "patient_id": 1,
+          "name": "John",
+          "lastName": "Doe",
+          "email": "johndoe@example.com",
+          "telephone": "1234567890",
+          "address": "123 Main St",
+          "deleted": false
+        },
+        {
+          "patient_id": 2,
+          "name": "John02",
+          "lastName": "Doe02",
+          "email": "johndoe02@example.com",
+          "telephone": "987654321",
+          "address": "321 Main St",
+          "deleted": false
+        }
+      ]
+      ```
+  ------------------------------------------
+  - Búsqueda por ID:
+    - URL: /patients/{patient_id}
+    - Método: GET
+    - Descripción: Se ingresan el n° de id para realizar búsqueda de un perfil determinado.
+    - Solicitud: .../patients/1
+    - Respuesta exitosa: Código 200 OK
+      ```
+      {
+        "patient_id": 1,
+        "name": "John",
+        "lastName": "Doe",
+        "email": "johndoe@example.com",
+        "telephone": "1234567890",
+        "address": "123 Main St",
+        "deleted": false
+      }
+      ```
+  -----------------------------------------
+  - Actualización del perfil:
+    - URL: /patients/update/{patient_id}
+    - Método: PUT
+    - Descripción: Se ingresan el n° de id para realizar búsqueda de un perfil determinado.
+    - Solicitud: .../patients/update/1 
+      ```
+      {
+          "name": "Nuevo Nombre",
+          "lastName": "Nuevo Apellido",
+          "email": "nuevo.mail@example.com",
+          "telephone": "987654321",
+          "address": "321 Main St"
+      }
+      ```
+      
+    - Respuesta exitosa: Código 200 OK
+      ```
+      {
+        "patient_id": 1,
+        "name": "Nuevo Nombre",
+        "lastName": "Nuevo Apellido",
+        "email": "nuevo.mail@example.com",
+        "telephone": "987654321",
+        "address": "321 Main St",
+        "deleted": false
+      }
+      ```
+  ---------------------------------------------
+  - Borrado de perfil:
+    - URL: /patients/delete/{patient_id}
+    - Método: DELETE
+    - Descripción: Se ingresan el n° de id para realizar búsqueda del perfil a borrar.
+    - Solicitud: .../patients/delete/1 
+    - Respuesta exitosa: Código 200 OK
+      ```
+      {
+        "patient_id": 1,
+        "name": "John",
+        "lastName": "Doe",
+        "email": "johndoe@example.com",
+        "telephone": "1234567890",
+        "address": "123 Main St",
+        "deleted": true
+      }
+      ```
+  -------------------------------------
+  - Listado de pacientes borrados:
+    - URL: .../patients/deleted
+    - Método: GET
+    - Descripción: Muestra un listado de los perfiles eliminados
+    - Solicitud: .../patients/deleted 
+    - Respuesta exitosa: Código 200 OK
+       ```
+      {
+        "patient_id": 1,
+        "name": "John",
+        "lastName": "Doe",
+        "email": "johndoe@example.com",
+        "telephone": "1234567890",
+        "address": "123 Main St",
+        "deleted": true
+      },
+      {
+        "patient_id": 2,
+        "name": "John",
+        "lastName": "Doe",
+        "email": "johndoe@example.com",
+        "telephone": "1234567890",
+        "address": "123 Main St",
+        "deleted": true
+      }
+      ```
+  ----------------------------------
+  - Restauración de perfil borrado:
+    - URL: .../patients/restore/{patient_id}
+    - Método: PUT
+    - Descripción: Se ingresan el n° de id para realizar búsqueda de un perfil determinado y restaurarlo.
+    - Solicitud: .../patients/restore/1 
+    - Respuesta exitosa: Código 200 OK
+      ```
+      {
+        "patient_id": 1,
+        "name": "John",
+        "lastName": "Doe",
+        "email": "johndoe@example.com",
+        "telephone": "1234567890",
+        "address": "123 Main St",
+        "deleted": false
+      }
+      ```
+  --------------------------------------------------------
+  - Crear un historial médico del paciente:
+    - URL: .../patients/{id}/medical-histories
+    - Método: POST
+    - Descripción: Mediante la búsqueda interna del perfil a través del n° id del paciente, se registra un nuevo historial que queda enlazado al perfil del paciente.
+    - Solicitud: .../patients/1/medical-histories 
+      ```
+      {
+        "consultationDate": "YYYY/MM/DDHH:MM:SS",
+        "note": "Una breve descripción del motivo de consulta",
+        "observation":"Se escriben las observaciones escritas por el médico.",
+        "medicalTreatment": "Descripción del tratamiento",
+        "speciality": "Oftalmología"
+      }  
+         
+    - Respuesta exitosa: Código 200 OK
+      ```
+      {
+        "idMedicalHistory": 1,
+        "consultationDate": "2024-09-10",
+        "note": "Una breve descripción del motivo de consulta",
+        "observation": "Se escriben las observaciones escritas por el médico.",
+        "medicalTreatment": "Descripción del tratamiento",
+        "speciality": "Oftalmología",
+        "patient": {
+            "patient_id": 1,
+            "name": "Laura",
+            "lastName": "Perez",
+            "email": "Laura45@mail.com",
+            "telephone": "54 11 3158-6547",
+            "address": "Avenida Prueba 547 5° piso, departamento B",
+            "deleted": false
+        }
+      ```
+  ---------------------------------------------
+  - Obtener un historial medico:
+    - URL: .../patients/{id}/medical-histories
+    - Método: GET
+    - Descripción: Mediante la búsqueda interna del perfil a través del n° id del paciente, se obtienen todos los historiales enlazados al paciente buscado.
+    - Solicitud: .../patients/1/medical-histories
+    - Respuesta exitosa: Código 200 OK
+      ```
+      [
+        {
+        "idMedicalHistory": 1,
+        "consultationDate": "2024-09-10",
+        "note": "Una breve descripción del motivo de consulta",
+        "observation": "Se escriben las observaciones escritas por el médico.",
+        "medicalTreatment": "Descripción del tratamiento",
+        "speciality": "Oftalmología",
+        "patient": {
+            "patient_id": 1,
+            "name": "Laura",
+            "lastName": "Perez",
+            "email": "Laura45@mail.com",
+            "telephone": "54 11 3158-6547",
+            "address": "Avenida Prueba 547 5° piso, departamento B",
+            "deleted": false
+        },
+        "deleted": false
+        }
+      ]
+      ```
+-----------------------------------------
+- Endpoints Admins:
+  - Creación de perfil de admins:
+    - URL: .../admins/createadmins
+    - Método: POST
+    - Descripción: Se ingresan los atributos correspondientes para la creación del perfil y su registro en base de datos.
+    - Cuerpo de Solicitud:
+       ```
+       {
+        "nombre": "Paula",
+        "apellido": "Dominguez",
+        "email": "paula.84@mail.com",
+        "telefono": "65214587"
+      }
+       ```
+  --------------------------------------
+  - Listado de admins:
+    - URL: .../admins
+    - Método: GET
+    - Descripción: Se obtiene un listado de los perfiles cargados en la base de datos.
+    - Cuerpo de Solicitud: ninguno
+    - Respuesta exitosa: Código 200 OK
+      ```
+        [
+          {
+          "idAdmin": 1,
+          "nombre": "Juan",
+          "apellido": "Pérez",
+          "email": "juan.perez@example.com",
+          "telefono": "123456789",
+          "deleted": false
+          },
+          {
+          "idAdmin": 2,
+          "nombre": "María",
+          "apellido": "González",
+          "email": "maria.gonzalez@example.com",
+          "telefono": "987654321",
+          "deleted": false
+          }
+        ]
+  --------------------------------------
+  - Búsqueda por ID:
+    - URL: .../admins/{id}
+    - Método: GET
+    - Descripción: Se ingresan el n° de id para realizar búsqueda de un perfil determinado.
+    - Solicitud: .../admins/1
+    - Respuesta exitosa: código 200 OK
+      ```
+      {
+        "idAdmin": 1,
+        "nombre": "Juan",
+        "apellido": "Pérez",
+        "email": "juan.perez@example.com",
+        "telefono": "123456789",
+        "deleted": false
+      }
+      ```
+  --------------------------------------
+  - Actualizar:
+    - URL: .../admins/{id}
+    - Método: PUT
+    - Descripción: Se ingresan el n° de id para realizar búsqueda de un perfil determinado para actualizar sus datos.
+    - Solicitud: .../admins/1
+      ```
+      {
+        "nombre": "Nuevo Nombre",
+        "apellido": "Nuevo Apellido",
+        "email": "nuevo.mail@mail.com",
+        "telefono": "987654321"
+      }
+      ```
+    - Respuesta exitosa: Código 200 OK
+      ```
+      {
+        "idAdmin": 1,
+        "nombre": "Nuevo Nombre",
+        "apellido": "Nuevo Apellido",
+        "email": "nuevo.mail@mail.com",
+        "telefono": "98765432
+        "deleted": false
+      }
+      ```
+    --------------------------------------------------------------
+    - Borrado de perfil admin:
+      - URL: .../admins/{id}
+      - Método: DELETE
+      - Descripción: Se ingresan el n° de id para realizar búsqueda del perfil que se desea eliminar.
+      - Solicitud: .../admins/1
+      - Respuesta exitosa: Código 200 OK
+        ```
+          {
+            "idAdmin": 1,
+            "nombre": "Juan",
+            "apellido": "Pérez",
+            "email": "juan.perez@example.com",
+            "telefono": "123456789",
+            "deleted": true
+          }
+        ```
+    --------------------------------------------------------------
+    - Obtener los perfiles eliminados de admins:
+      - URL: .../admins/deleted
+      - Método: GET
+      - Descripción: Se muestra un listado de los perfiles que han sido eliminados.
+      - Solicitud: .../admins/1
+      - Respuesta exitosa: Código 200 OK
+        ```
+          [
+            {
+                "idAdmin": 1,
+                "nombre": "Paula",
+                "apellido": "Dominguez",
+                "email": "paula.84@mail.com",
+                "telefono": "65214587",
+                "deleted": true
+            },
+            {
+                "idAdmin": 2,
+                "nombre": "Paula",
+                "apellido": "Dominguez",
+                "email": "paula.84@mail.com",
+                "telefono": "65214587",
+                "deleted": true
+            }
+          ]
+        ```
+      ----------------------------------------------
+      - Restauración de perfiles borrados:
+        - URL: .../admins/restore/{id}
+        - Método: PUT
+        - Descripción: Se ingresan el n° de id para realizar búsqueda del perfil que se desea restaurar.
+        - Solicitud: .../admins/restore/1
+        - Respuesta exitosa: Código 200 OK
+          ```
+          {
+            "idAdmin": 2,
+            "nombre": "Paula",
+            "apellido": "Dominguez",
+            "email": "paula.84@mail.com",
+            "telefono": "65214587",
+            "deleted": false
+          }
+          ```
