@@ -1,5 +1,4 @@
 import { useNavigate } from "react-router-dom";
-import RegisterBackground from "@/components/RegisterBackground";
 import PatientRegistrationForm from "@/components/PatientRegistrationForm";
 import DoctorRegistrationForm from "@/components/DoctorRegistrationForm";
 import logoAzul from "@/assets/logoAzul.png";
