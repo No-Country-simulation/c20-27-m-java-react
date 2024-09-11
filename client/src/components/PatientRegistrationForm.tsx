@@ -1,24 +1,117 @@
+import React, { useState } from "react";
+import { useCreatePatient } from "@/hooks/useCreatePatient";
 import Input from "@/components/RegisterEntry";
 import Button from "@/components/Button";
-import { UserIcon, LastNameIcon, MailIcon, TelephoneIcon, AddressIcon } from "@/assets/icons"
+import { UserIcon, LastNameIcon, MailIcon, TelephoneIcon, AddressIcon } from "@/assets/icons"; // Asegúrate de que los iconos estén correctamente importados
 
+const PatientRegistrationForm = () => {
+  const [name, setName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [email, setEmail] = useState("");
+  const [telephone, setTelephone] = useState("");
+  const [address, setAddress] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
+  const [successMessage, setSuccessMessage] = useState("");
 
-const Formulario = () => {
+  const [success, loading, error, createPatient] = useCreatePatient({
+    name,
+    lastName,
+    email,
+    telephone,
+    address
+  });
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+
+    if (!name || !lastName || !email || !telephone || !address) {
+      setErrorMessage("Todos los campos son requeridos.");
+      return;
+    }
+
+    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailPattern.test(email)) {
+      setErrorMessage("El correo electrónico no es válido.");
+      return;
+    }
+
+    setErrorMessage("");
+    await createPatient();
+
+    if (success) {
+      setName("");
+      setLastName("");
+      setEmail("");
+      setTelephone("");
+      setAddress("");
+      setSuccessMessage("Paciente creado exitosamente");
+    } else if (error) {
+      setSuccessMessage("");
+      setErrorMessage(error);
+    }
+  };
+
   return (
     <div>
-    <h2 className="mb-3 text-center text-sm font-bold text-gray-800">Crea tu cuenta</h2>
-    <p className="text-center text-xs font-semibold text-gray-500">Estamos para ayudarte</p>
-    <form className="mt-5 flex w-full max-w-xs flex-col gap-4">
-      <Input iconSrc={UserIcon} placeholder="Tu nombre" type="text" id="id_paciente" />
-      <Input iconSrc={LastNameIcon} placeholder="Tu apellido" type="text" id="apellido" />
-      <Input iconSrc={MailIcon} placeholder="Tu correo electrónico" type="email" id="email" />
-      <Input iconSrc={TelephoneIcon} placeholder="Tu número telefónico" type="text" id="telefono" />
-      <Input iconSrc={AddressIcon} placeholder="Tu dirección" type="text" id="direccion" />
-      <Button label="Crear Perfil" />
-    </form>
+      <h2 className="mb-3 text-center text-sm font-bold text-gray-800">Registro de Paciente</h2>
+      <form className="mt-5 flex w-full max-w-xs flex-col gap-4 mb-3" onSubmit={handleSubmit}>
+        <Input
+          iconSrc={UserIcon} 
+          placeholder="Nombre"
+          type="text"
+          id="name"
+          value={name}
+          onChange={(e) => setName(e.target.value)}
+        />
+        <Input
+          iconSrc={LastNameIcon} 
+          placeholder="Apellido"
+          type="text"
+          id="lastName"
+          value={lastName}
+          onChange={(e) => setLastName(e.target.value)}
+        />
+        <Input
+          iconSrc={MailIcon} 
+          placeholder="Correo electrónico"
+          type="email"
+          id="email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+        />
+        <Input
+          iconSrc={TelephoneIcon} 
+          placeholder="Número telefónico"
+          type="text"
+          id="telephone"
+          value={telephone}
+          onChange={(e) => setTelephone(e.target.value)}
+        />
+        <Input
+          iconSrc={AddressIcon} 
+          placeholder="Dirección"
+          type="text"
+          id="address"
+          value={address}
+          onChange={(e) => setAddress(e.target.value)}
+        />
+        <Button label={loading ? "Creando..." : "Crear Paciente"} />
+      </form>
+      {errorMessage && (
+        <p className="text-red-500 font-bold text-center mt-3">
+          {errorMessage}
+        </p>
+      )}
+      {successMessage && (
+        <p className="text-green-500 font-bold text-center mt-3">
+          {successMessage}
+        </p>
+      )}
     </div>
-  )
-}
+  );
+};
 
-export default Formulario
+export default PatientRegistrationForm;
+
+
 
