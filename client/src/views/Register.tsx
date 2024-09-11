@@ -1,35 +1,34 @@
-import { useNavigate } from "react-router-dom"
-import RegisterBackground from "@/components/RegisterBackground"
-import Formulario from "@/components/RegistrationForm"
-import Button from "@/components/Button"
-import logoAzul from "@/assets/logoAzul.png"
-import { CloseIcon } from "@/assets/icons"
+import { useNavigate } from "react-router-dom";
+import logoAzul from "@/assets/logoAzul.png";
+import { ArrowIcon } from "@/assets/icons";
+import ModalRegister from "@/components/ModalRegister";
 
 const Register = () => {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
-  const closeModal = () => {
-    navigate("/home")
-  }
+  const closePage = () => {
+    navigate("/home");
+  };
 
   return (
-    <RegisterBackground>
-      <div className="relative flex flex-col items-center rounded-lg bg-white p-4">
-        <button onClick={closeModal} className="absolute right-4 top-4 p-2">
-          <img src={CloseIcon} alt="Close" className="h-6 w-6" />
+    <div className="relative flex items-center justify-center min-h-screen bg-gray-100">
+      {/* Overlay */}
+      <div className="fixed inset-0 bg-gray-600 bg-opacity-50 z-40"></div>
+
+      {/* Modal Content */}
+      <div className="relative flex flex-col items-center bg-white p-8 rounded-lg shadow-lg z-50 max-w-4xl max-h-[90vh] overflow-y-auto">
+        <button onClick={closePage} className="absolute top-4 left-4 p-2 text-gray-500 hover:text-gray-700">
+          <img src={ArrowIcon} alt="Close" className="h-7 w-7" />
         </button>
-        <img src={logoAzul} alt="Logo" className="mx-auto block h-auto max-w-full mt-3 mb-3" />
-        <h1 className="mb-1 text-center text-lg font-semibold text-gray-800">
+        <img src={logoAzul} alt="Logo" className="mx-auto block h-10 max-w-full mt-30 mb-3" />
+        <h1 className="mb-4 text-center text-xl font-semibold text-gray-800">
           <span className="text-gray-600">Health</span> <span className="text-gray-800">Tech</span>
         </h1>
-        <h2 className="mb-3 text-center text-sm font-bold text-gray-800">Crea tu cuenta</h2>
-        <p className="text-center text-xs font-semibold text-gray-500">Estamos para ayudarte</p>
-        <Formulario />
-        <Button label="Crear perfil" />
+        <ModalRegister onClose={closePage} />
       </div>
-    </RegisterBackground>
-  )
-}
+    </div>
+  );
+};
 
-export default Register
+export default Register;
 

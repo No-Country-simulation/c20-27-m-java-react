@@ -21,6 +21,7 @@ import MailIcon from "./mail.svg"
 import TelephoneIcon from "./telephone.svg"
 import AddressIcon from "./address.svg"
 import ArrowDownIcon from "./arrowdown.svg"
+import SpecializationIcon from "./specialization.svg"
 
 export {
   DentistryIcon,
@@ -46,4 +47,5 @@ export {
   TelephoneIcon,
   AddressIcon,
   ArrowDownIcon,
+  SpecializationIcon
 }
