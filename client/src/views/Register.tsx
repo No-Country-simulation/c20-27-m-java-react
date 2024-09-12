@@ -24,9 +24,9 @@ const Register = () => {
           <img src={ArrowIcon} alt="Close" className="h-7 w-7" />
         </button>
         <img src={logoAzul} alt="Logo" className="mt-30 mx-auto mb-3 block h-10 max-w-full" />
-        <h1 className="mb-4 text-center text-xl font-semibold text-gray-800">
-          <span className="text-gray-600">Health</span> <span className="text-gray-800">Tech</span>
-        </h1>
+        <h2 className="mb-4 text-xl text-gray-800">
+          Health<span className="text-gray-600">Tech</span>
+        </h2>
         <ModalRegister onClose={closePage} />
       </div>
     </div>
