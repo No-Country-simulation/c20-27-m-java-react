@@ -2,6 +2,7 @@ package com.example.Healthtech.services;
 
 import com.example.Healthtech.models.MedicalHistory;
 import com.example.Healthtech.models.Patient;
+import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 
 import java.util.List;
@@ -22,4 +23,6 @@ public interface PatientService {
     MedicalHistory addMedicalHistory(Long patientId, MedicalHistory medicalHistory);
 
     List<MedicalHistory> getMedicalHistoriesByPatient(Long patientId);
+
+    Patient createPatientWithUser(@Valid Patient patient, Long userId);
 }
