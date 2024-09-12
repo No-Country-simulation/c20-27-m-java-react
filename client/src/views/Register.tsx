@@ -1,34 +1,36 @@
-import { useNavigate } from "react-router-dom";
-import logoAzul from "@/assets/logoAzul.png";
-import { ArrowIcon } from "@/assets/icons";
-import ModalRegister from "@/components/ModalRegister";
+import { useNavigate } from "react-router-dom"
+import logoAzul from "@/assets/logoAzul.png"
+import { ArrowIcon } from "@/assets/icons"
+import ModalRegister from "@/components/ModalRegister"
 
 const Register = () => {
-  const navigate = useNavigate();
+  const navigate = useNavigate()
 
   const closePage = () => {
-    navigate("/home");
-  };
+    navigate("/home")
+  }
 
   return (
-    <div className="relative flex items-center justify-center min-h-screen bg-gray-100">
+    <div className="relative flex min-h-screen items-center justify-center bg-gray-100">
       {/* Overlay */}
-      <div className="fixed inset-0 bg-gray-600 bg-opacity-50 z-40"></div>
+      <div className="fixed inset-0 z-40 bg-gray-600 bg-opacity-50"></div>
 
       {/* Modal Content */}
-      <div className="relative flex flex-col items-center bg-white p-8 rounded-lg shadow-lg z-50 max-w-4xl max-h-[90vh] overflow-y-auto">
-        <button onClick={closePage} className="absolute top-4 left-4 p-2 text-gray-500 hover:text-gray-700">
+      <div className="relative z-50 flex max-h-[90vh] max-w-4xl flex-col items-center overflow-y-auto rounded-lg bg-white p-8 shadow-lg">
+        <button
+          onClick={closePage}
+          className="absolute left-4 top-4 p-2 text-gray-500 hover:text-gray-700"
+        >
           <img src={ArrowIcon} alt="Close" className="h-7 w-7" />
         </button>
-        <img src={logoAzul} alt="Logo" className="mx-auto block h-10 max-w-full mt-30 mb-3" />
+        <img src={logoAzul} alt="Logo" className="mt-30 mx-auto mb-3 block h-10 max-w-full" />
         <h1 className="mb-4 text-center text-xl font-semibold text-gray-800">
           <span className="text-gray-600">Health</span> <span className="text-gray-800">Tech</span>
         </h1>
         <ModalRegister onClose={closePage} />
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default Register;
-
+export default Register

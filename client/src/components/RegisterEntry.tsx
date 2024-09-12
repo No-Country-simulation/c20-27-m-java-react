@@ -1,13 +1,12 @@
 interface InputProps {
-  iconSrc: string;
-  placeholder: string;
-  type: string;
-  id: string;
-  name?: string;
-  value: string; // Agrega esta línea para el valor del input
-  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void; // Agrega esta línea para el evento onChange
+  iconSrc: string
+  placeholder: string
+  type: string
+  id: string
+  name?: string
+  value: string // Agrega esta línea para el valor del input
+  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void // Agrega esta línea para el evento onChange
 }
-
 
 const Input = ({ iconSrc, placeholder, type, id, name, value, onChange }: InputProps) => {
   return (
