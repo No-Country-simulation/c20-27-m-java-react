@@ -40,6 +40,10 @@ public class Patient {
     @JsonIgnore // Se ñade esta anotación para evitar la serialización recursiva
     private List<MedicalHistory> medicalHistories;
 
+    //Relacion con usuario
+    @OneToOne
+    @JoinColumn(name = "user")
+    private User userName;
 
     private boolean deleted = false;
 

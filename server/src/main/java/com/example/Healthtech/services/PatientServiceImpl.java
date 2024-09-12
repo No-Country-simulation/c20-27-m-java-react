@@ -4,8 +4,10 @@ import com.example.Healthtech.exception.ResourceNotFoundException;
 import com.example.Healthtech.exception.UserInvalidException;
 import com.example.Healthtech.models.MedicalHistory;
 import com.example.Healthtech.models.Patient;
+import com.example.Healthtech.models.User;
 import com.example.Healthtech.repositories.MedicalHistoryRepository;
 import com.example.Healthtech.repositories.PatientRepository;
+import com.example.Healthtech.repositories.UserRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -20,6 +22,8 @@ public class PatientServiceImpl implements PatientService{
     PatientRepository patientRepository;
     @Autowired
     MedicalHistoryRepository medicalHistoryRepository;
+    @Autowired
+    private UserRepository userRepository;
 
     @Override
     public List<Patient> allPatients() {
@@ -35,6 +39,17 @@ public class PatientServiceImpl implements PatientService{
             return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
+    //metodo para crear con relacion a user
+    public Patient createPatientWithUser(Patient patient, Long userId) {
+        try {
+            User user = userRepository.findById(userId).get();
+            patient.setUserName(user);
+            return patientRepository.save(patient);
+        } catch (Exception e) {
+            throw new RuntimeException("Error al crear el paciente.", e);
+        }
+    }
+
     //metodo interno de validacion de atributos de paciente
     private void validatePatient(Patient patient) {
         if (patient.getName() == null || patient.getName().isEmpty()) {

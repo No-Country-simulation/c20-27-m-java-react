@@ -25,9 +25,13 @@ public class PatientController {
         return ResponseEntity.ok().body(List);
     }
 
-    @PostMapping("/create")
+    /*@PostMapping("/create")
     public ResponseEntity<?> createPatient(@RequestBody Patient patient) {
         return ResponseEntity.ok().body(patientService.create(patient));
+    }*/
+    @PostMapping("/create/{user_id}")
+    public ResponseEntity<Patient> createPatient(@RequestBody @Valid Patient patient, @PathVariable Long user_id) {
+        return ResponseEntity.ok().body(patientService.createPatientWithUser(patient,user_id));
     }
 
     @GetMapping("/{patient_id}")
