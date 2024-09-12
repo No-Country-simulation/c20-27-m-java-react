@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom"
-import DoctorProfile from "@/assets/doctorprofile.svg"
+import DefaultImage from "@/assets/icons/photoDefault.svg";
 
 export interface Doctor {
   idMedico: number
@@ -22,7 +22,7 @@ const Modal = ({ doctor }: ModalProps) => {
       className="absolute top-[50px] z-50 flex h-[125px] w-full rounded-xl bg-[#F3F4F6] pl-2 pt-2"
     >
       <figure className="mr-4 size-[109px]">
-        <img src={DoctorProfile} alt="" />
+        <img src={DefaultImage} alt="" />
       </figure>
 
       <div className="pt-2">

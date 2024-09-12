@@ -24,6 +24,7 @@ import ArrowDownIcon from "./arrowdown.svg"
 import SpecializationIcon from "./specialization.svg"
 import EnvelopeIcon from "./envelope.svg"
 import PadlockIcon from "./padlock.svg"
+import photoDefaultIcon from "./photoDefault.svg"
 
 export {
   DentistryIcon,
@@ -52,4 +53,5 @@ export {
   SpecializationIcon,
   EnvelopeIcon,
   PadlockIcon,
+  photoDefaultIcon,
 }

@@ -19,7 +19,7 @@ export const useCreateDoctor = (doctor: {
       setError(null)
 
       await axios.post(
-        "https://c20-27-m-java-react-production.up.railway.app/doctors/createDoctor",
+        "https://c20-27-m-java-react-production-b1fb.up.railway.app/doctors/createDoctor",
         doctor,
       )
 
