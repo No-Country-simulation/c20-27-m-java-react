@@ -38,7 +38,7 @@ const Loading = () => {
           <img src={Logo} alt="" />
         </figure>
         <h1 className="text-xl text-[#cbcbcb]">
-          Healt
+          Health
           <span className="text-white">Tech</span>
         </h1>
       </div>

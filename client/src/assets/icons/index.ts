@@ -22,6 +22,8 @@ import TelephoneIcon from "./telephone.svg"
 import AddressIcon from "./address.svg"
 import ArrowDownIcon from "./arrowdown.svg"
 import SpecializationIcon from "./specialization.svg"
+import EnvelopeIcon from "./envelope.svg"
+import PadlockIcon from "./padlock.svg"
 
 export {
   DentistryIcon,
@@ -47,5 +49,7 @@ export {
   TelephoneIcon,
   AddressIcon,
   ArrowDownIcon,
-  SpecializationIcon
+  SpecializationIcon,
+  EnvelopeIcon,
+  PadlockIcon,
 }

@@ -1,25 +1,25 @@
-import { useState } from "react";
-import PatientRegistrationForm from "@/components/PatientRegistrationForm";
-import DoctorRegistrationForm from "@/components/DoctorRegistrationForm";
+import { useState } from "react"
+import PatientRegistrationForm from "@/components/PatientRegistrationForm"
+import DoctorRegistrationForm from "@/components/DoctorRegistrationForm"
 
 interface ModalRegisterProps {
-  onClose: () => void;
+  onClose: () => void
 }
 
-const ModalRegister = ({ }: ModalRegisterProps) => {
-  const [selectedRole, setSelectedRole] = useState<string | null>(null);
+const ModalRegister = ({}: ModalRegisterProps) => {
+  const [selectedRole, setSelectedRole] = useState<string | null>(null)
 
   const handleRoleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setSelectedRole(event.target.value);
-  };
+    setSelectedRole(event.target.value)
+  }
 
   return (
-    <div className="flex flex-col gap-4 items-center ">
+    <div className="flex flex-col items-center gap-4">
       {!selectedRole ? (
         <>
-          <span className="text-sm text-gray-700 font-medium">Selecciona tu rol:</span>
+          <span className="text-sm font-medium text-gray-700">Selecciona tu rol:</span>
           <div className="flex items-center gap-4">
-            <label className="flex items-center gap-2 text-sm text-gray-700 font-medium">
+            <label className="flex items-center gap-2 text-sm font-medium text-gray-700">
               <input
                 type="radio"
                 name="role"
@@ -30,7 +30,7 @@ const ModalRegister = ({ }: ModalRegisterProps) => {
               />
               <span>Paciente</span>
             </label>
-            <label className="flex items-center gap-2 text-sm text-gray-700 font-medium">
+            <label className="flex items-center gap-2 text-sm font-medium text-gray-700">
               <input
                 type="radio"
                 name="role"
@@ -44,14 +44,13 @@ const ModalRegister = ({ }: ModalRegisterProps) => {
           </div>
         </>
       ) : (
-        <div className="flex flex-col gap-4 items-center">
+        <div className="flex flex-col items-center gap-4">
           {selectedRole === "paciente" && <PatientRegistrationForm />}
           {selectedRole === "medico" && <DoctorRegistrationForm />}
         </div>
       )}
     </div>
-  );
-};
+  )
+}
 
-export default ModalRegister;
-
+export default ModalRegister
