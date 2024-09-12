@@ -1,18 +1,17 @@
 package com.example.Healthtech.controllers;
 
+import com.example.Healthtech.models.MedicalHistory;
 import com.example.Healthtech.models.Patient;
 import com.example.Healthtech.services.PatientService;
-import com.example.Healthtech.services.PatientServiceImpl;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
-@Controller
+@CrossOrigin
 @RequestMapping("/patients")
 public class PatientController {
 
@@ -60,5 +59,14 @@ public class PatientController {
     @PutMapping("/update/{patient_id}")
     public ResponseEntity<Patient> updatePatient(@PathVariable Long patient_id,@RequestBody @Valid Patient updatedPatient){
         return ResponseEntity.ok().body(patientService.updatePatientById(patient_id,updatedPatient));
+    }
+    @PostMapping("/{id}/medical-histories")
+    public ResponseEntity<MedicalHistory> addMedicalHistory(@PathVariable Long id, @RequestBody MedicalHistory medicalHistory) {
+        return ResponseEntity.ok(patientService.addMedicalHistory(id, medicalHistory));
+    }
+
+    @GetMapping("/{id}/medical-histories")
+    public ResponseEntity<List<MedicalHistory>> getMedicalHistoriesByPatient(@PathVariable Long id) {
+        return ResponseEntity.ok(patientService.getMedicalHistoriesByPatient(id));
     }
 }

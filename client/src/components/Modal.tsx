@@ -1,11 +1,13 @@
-import React from "react"
 import { Link } from "react-router-dom"
+import DoctorProfile from "@/assets/doctorprofile.svg"
 
 export interface Doctor {
-  id: number
-  avatar: string
-  lastname: string
-  specialty: string
+  idMedico: number
+  nombre: string
+  apellido: string
+  especialidad: string
+  email: string
+  telefono: string
 }
 
 interface ModalProps {
@@ -15,17 +17,20 @@ interface ModalProps {
 const Modal = ({ doctor }: ModalProps) => {
   return (
     <Link
-      to={`/doctor/${doctor.lastname}`}
-      key={doctor.id}
-      className="absolute top-[50px] z-50 flex h-[88px] w-full rounded-xl bg-[#F3F4F6] pl-2 pt-2"
+      to={`/doctor/${doctor.nombre}`}
+      key={doctor.idMedico}
+      className="absolute top-[50px] z-50 flex h-[125px] w-full rounded-xl bg-[#F3F4F6] pl-2 pt-2"
     >
-      <figure>
-        <img src={doctor.avatar} alt={doctor.lastname} />
+      <figure className="mr-4 size-[109px]">
+        <img src={DoctorProfile} alt="" />
       </figure>
 
-      <div className="">
-        <h2>{doctor.lastname}</h2>
-        <p>{doctor.specialty}</p>
+      <div className="pt-2">
+        <h2 className="mb-2 border-b border-[#E5E7EB] text-base font-bold text-[#1F2A37]">
+          {doctor.nombre} {doctor.apellido}
+        </h2>
+        <p className="mb-2 text-sm font-semibold text-[#4B5563]">{doctor.especialidad}</p>
+        <p className="text-sm text-[#4B5563]">{doctor.email}</p>
       </div>
     </Link>
   )

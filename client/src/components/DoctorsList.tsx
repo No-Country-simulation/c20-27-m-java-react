@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react"
-import DoctorCard from "../components/DoctorCard"
-import React from "react"
+import DoctorCard from "@/components/DoctorCard"
 
 interface Doctor {
   id: number

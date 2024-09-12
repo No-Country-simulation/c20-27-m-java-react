@@ -1,6 +1,4 @@
-import React from "react"
-
-const DoctorCard = ({ doctor }) => {
+const DoctorCard = ({ doctor }: any) => {
   return (
     <div
       key={doctor.id}

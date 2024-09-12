@@ -8,12 +8,19 @@ import DoctorProfile from "@/views/DoctorProfile"
 import InfoSpecialty from "@/views/InfoSpecialty"
 import AllDoctors from "@/views/AllDoctors"
 import Register from "@/views/Register"
+import Loading from "@/views/Loading"
+import OptionsRegister from "@/views/OptionsRegister"
+import SignIn from "@/views/SignIn"
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <Home />,
+    element: <Loading />,
     errorElement: <Error />,
+  },
+  {
+    path: "/home",
+    element: <Home />,
   },
   {
     path: "/doctor/:name",
@@ -21,7 +28,7 @@ const router = createBrowserRouter([
   },
   {
     path: "/all-doctors",
-    element: <AllDoctors />
+    element: <AllDoctors />,
   },
   {
     path: "/all-categories",
@@ -71,7 +78,11 @@ const router = createBrowserRouter([
   },
   {
     path: "/profile",
-    element: < Register/>,
+    element: <Register />,
+  },
+  {
+    path: "/sign-in",
+    element: <SignIn />,
   },
 ])
 

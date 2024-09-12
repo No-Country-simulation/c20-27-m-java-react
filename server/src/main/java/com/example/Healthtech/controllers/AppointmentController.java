@@ -17,6 +17,7 @@ import java.net.URI;
 
 
 @RestController
+@CrossOrigin
 @RequestMapping("/appointments")
 public class AppointmentController {
 

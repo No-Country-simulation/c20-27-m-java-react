@@ -15,6 +15,15 @@ import LocationIconDark from "./locationdark.svg"
 import BellIcon from "./bell.svg"
 import DotIcon from "./dot.svg"
 import ArrowIcon from "./arrow.svg"
+import CloseIcon from "./close.svg"
+import LastNameIcon from "./lastname.svg"
+import MailIcon from "./mail.svg"
+import TelephoneIcon from "./telephone.svg"
+import AddressIcon from "./address.svg"
+import ArrowDownIcon from "./arrowdown.svg"
+import SpecializationIcon from "./specialization.svg"
+import EnvelopeIcon from "./envelope.svg"
+import PadlockIcon from "./padlock.svg"
 
 export {
   DentistryIcon,
@@ -33,5 +42,14 @@ export {
   LocationIconDark,
   BellIcon,
   DotIcon,
-  ArrowIcon
+  ArrowIcon,
+  CloseIcon,
+  LastNameIcon,
+  MailIcon,
+  TelephoneIcon,
+  AddressIcon,
+  ArrowDownIcon,
+  SpecializationIcon,
+  EnvelopeIcon,
+  PadlockIcon,
 }
