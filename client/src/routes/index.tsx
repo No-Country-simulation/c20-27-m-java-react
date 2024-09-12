@@ -9,7 +9,6 @@ import InfoSpecialty from "@/views/InfoSpecialty"
 import AllDoctors from "@/views/AllDoctors"
 import Register from "@/views/Register"
 import Loading from "@/views/Loading"
-import OptionsRegister from "@/views/OptionsRegister"
 import SignIn from "@/views/SignIn"
 
 const router = createBrowserRouter([
@@ -83,7 +82,7 @@ const router = createBrowserRouter([
   {
     path: "/sign-in",
     element: <SignIn />,
-  },
+  }
 ])
 
 const MyRoutes = () => <RouterProvider router={router} />

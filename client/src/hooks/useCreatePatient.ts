@@ -32,7 +32,7 @@ export const useCreatePatient = (patient: Patient) => {
 
       // Realiza la solicitud POST al endpoint para crear un paciente
       await axios.post(
-        "https://c20-27-m-java-react-production.up.railway.app/patients/create",
+        "https://c20-27-m-java-react-production-b1fb.up.railway.app/patients/create",
         patient,
         {
           headers: {
