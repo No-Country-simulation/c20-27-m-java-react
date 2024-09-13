@@ -1,41 +1,25 @@
-import Logo from "@/assets/logo.svg"
-import { useEffect, useState } from "react"
-import { useNavigate } from "react-router-dom"
+import Logo from "@/assets/logo.svg";
+import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 const Loading = () => {
-  const navigate = useNavigate()
-  const [isVisible, setIsVisible] = useState<boolean>(false)
+  const navigate = useNavigate();
 
   useEffect(() => {
-    const handleResize = () => {
-      const windowWidth = window.innerWidth
-      if (windowWidth < 1024) {
-        setIsVisible(true)
-      } else {
-        navigate("/home")
-      }
-    }
+    // Redirige a /home después de que el componente Loading esté visible por 3 segundos
+    const timer = setTimeout(() => {
+      navigate("/home");
+    }, 3000);
 
-    handleResize()
-    window.addEventListener("resize", handleResize)
+    // Limpia el temporizador si el componente se desmonta
+    return () => clearTimeout(timer);
+  }, [navigate]);
 
-    return () => window.removeEventListener("resize", handleResize)
-  }, [navigate])
-
-  useEffect(() => {
-    if (isVisible) {
-      const timer = setTimeout(() => {
-        navigate("/home")
-      }, 3000)
-      return () => clearTimeout(timer)
-    }
-  }, [isVisible, navigate])
-
-  return isVisible ? (
+  return (
     <section className="absolute inset-0 bg-purple">
       <div className="flex h-screen flex-col items-center justify-center gap-3">
         <figure className="size-[66px]">
-          <img src={Logo} alt="" />
+          <img src={Logo} alt="Logo" />
         </figure>
         <h1 className="text-xl text-[#cbcbcb]">
           Health
@@ -43,7 +27,7 @@ const Loading = () => {
         </h1>
       </div>
     </section>
-  ) : null
-}
+  );
+};
 
-export default Loading
+export default Loading;

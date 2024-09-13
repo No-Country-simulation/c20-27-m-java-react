@@ -1,25 +1,41 @@
-import { createBrowserRouter, RouterProvider } from "react-router-dom"
-import Home from "@/views/Home"
-import Error from "@/views/Error"
-import AllCategories from "@/views/AllCategories"
-import Location from "@/views/Location"
-import Calendar from "@/views/Calendar"
-import DoctorProfile from "@/views/DoctorProfile"
-import InfoSpecialty from "@/views/InfoSpecialty"
-import AllDoctors from "@/views/AllDoctors"
-import Register from "@/views/Register"
-import Loading from "@/views/Loading"
-import SignIn from "@/views/SignIn"
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import Home from "@/views/Home";
+import Error from "@/views/Error";
+import AllCategories from "@/views/AllCategories";
+import Location from "@/views/Location";
+import Calendar from "@/views/Calendar";
+import DoctorProfile from "@/views/DoctorProfile";
+import InfoSpecialty from "@/views/InfoSpecialty";
+import AllDoctors from "@/views/AllDoctors";
+import Register from "@/views/Register";
+import SignIn from "@/views/SignIn";
+import Loading from "@/views/Loading";
+import PrincipalScreen from "@/views/PrincipalScreen";
+import Profile from "@/views/Profile";
+import OptionsRegister from "@/views/OptionsRegister";
 
+// Define las rutas
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <Loading />,
+    element: <PrincipalScreen />,
     errorElement: <Error />,
+  },
+  {
+    path: "/loading",
+    element: <Loading />,
   },
   {
     path: "/home",
     element: <Home />,
+  },
+  {
+    path: "/register",
+    element: <Register />,
+  },
+  {
+    path: "/Options",
+    element: <OptionsRegister />,
   },
   {
     path: "/doctor/:name",
@@ -77,14 +93,14 @@ const router = createBrowserRouter([
   },
   {
     path: "/profile",
-    element: <Register />,
+    element: <Profile />,
   },
   {
     path: "/sign-in",
     element: <SignIn />,
-  }
-])
+  },
+]);
 
-const MyRoutes = () => <RouterProvider router={router} />
+const MyRoutes = () => <RouterProvider router={router} />;
 
-export default MyRoutes
+export default MyRoutes;
