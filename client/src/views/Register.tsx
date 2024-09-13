@@ -7,15 +7,15 @@ const Register = () => {
   const navigate = useNavigate()
 
   const closePage = () => {
-    navigate("/home")
+    navigate("/")
   }
 
   return (
     <div className="relative flex min-h-screen items-center justify-center bg-gray-100">
       {/* Overlay */}
-      <div className="fixed inset-0 z-40 bg-gray-600 bg-opacity-50"></div>
+      <div className="fixed inset-0 z-40 bg-gray-100 bg-opacity-1"></div>
 
-      {/* Modal Content */}
+     
       <div className="relative z-50 flex max-h-[90vh] max-w-4xl flex-col items-center overflow-y-auto rounded-lg bg-white p-8 shadow-lg">
         <button
           onClick={closePage}

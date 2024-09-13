@@ -16,7 +16,7 @@ const OptionsRegister = () => {
   return (
     <>
       {isModalOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-gray-400 bg-opacity-50">
           <div className="relative flex w-full max-w-md flex-col items-center rounded-lg bg-white p-6 shadow-2xl">
             <button onClick={closeModalAndRedirect} className="absolute right-4 top-4 p-2">
               <img src={CloseIcon} alt="Close" className="h-6 w-6" />
