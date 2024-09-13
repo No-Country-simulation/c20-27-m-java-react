@@ -7,6 +7,7 @@ import "@fontsource/inter/600.css"
 import "@fontsource/inter/700.css"
 import "@/styles/index.css"
 
+
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
     <App />
