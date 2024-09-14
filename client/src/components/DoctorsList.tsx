@@ -1,23 +1,24 @@
 import { useEffect, useState } from "react";
 import DoctorCard from "@/components/DoctorCard";
 import FormularioCitas from "@/components/AppointmentRegistry";
-import CloseIcon from "@/assets/icons/close.svg"; // Importar el SVG correctamente
+import CloseIcon from "@/assets/icons/close.svg";
 
 export interface Doctor {
   id: number;
-  nombre: string;   
-  apellido: string;  
-  especialidad: string; 
-  email: string;      
-  telefono: string;  
-  imagen: string;         
+  nombre: string;
+  apellido: string;
+  especialidad: string;
+  email: string;
+  telefono: string;
+  imagen: string;
 }
 
 interface DoctorsProps {
+  selectedLastName: string;
   selectedSpecialty: string;
 }
 
-const DoctorsList = ({ selectedSpecialty }: DoctorsProps) => {
+const DoctorsList = ({ selectedLastName, selectedSpecialty }: DoctorsProps) => {
   const [doctors, setDoctors] = useState<Doctor[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
@@ -33,17 +34,17 @@ const DoctorsList = ({ selectedSpecialty }: DoctorsProps) => {
         }
         const data: Doctor[] = await response.json();
         setDoctors(data);
-        setError(null); 
+        setError(null);
       } catch (err) {
         console.error("Doctor not found: ", err);
-        setError("Error fetching doctors"); 
+        setError("Error fetching doctors");
       } finally {
-        setLoading(false); 
+        setLoading(false);
       }
     };
 
     fetchDoctors();
-  }, []); 
+  }, []);
 
   const openModal = (doctor: Doctor) => {
     setSelectedDoctor(doctor);
@@ -55,22 +56,22 @@ const DoctorsList = ({ selectedSpecialty }: DoctorsProps) => {
     setIsModalOpen(false);
   };
 
-  const filteredDoctors =
-    selectedSpecialty === "All"
-      ? doctors
-      : doctors.filter(doctor => doctor.especialidad === selectedSpecialty);
+  const filteredDoctors = doctors.filter(doctor => 
+    (selectedLastName === "" || doctor.apellido.toLowerCase().includes(selectedLastName.toLowerCase())) &&
+    (selectedSpecialty === "All" || doctor.especialidad.toLowerCase() === selectedSpecialty.toLowerCase())
+  );
 
   return (
     <section className="mx-auto my-0 flex flex-wrap justify-center p-4">
       {loading && <p className="text-gray-800">Cargando...</p>}
       {error && <p className="text-red-500 font-bold">{error}</p>}
       {!loading && !error && filteredDoctors.length === 0 && (
-        <p className="text-gray-800">No hay doctores disponibles para la especialidad {selectedSpecialty}.</p>
+        <p className="text-gray-800">No hay doctores disponibles con el apellido {selectedLastName} y especialidad {selectedSpecialty}.</p>
       )}
       {!loading && !error && filteredDoctors.length > 0 && (
         filteredDoctors.map(doctor => (
           <DoctorCard
-            key={doctor.id} // Asegúrate de que el ID sea único
+            key={doctor.id}
             doctor={doctor}
             onBookAppointment={() => openModal(doctor)}
           />
@@ -98,3 +99,4 @@ const DoctorsList = ({ selectedSpecialty }: DoctorsProps) => {
 };
 
 export default DoctorsList;
+

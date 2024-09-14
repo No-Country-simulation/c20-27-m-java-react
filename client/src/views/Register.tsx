@@ -27,6 +27,8 @@ const Register = () => {
         <h2 className="mb-4 text-xl text-gray-800">
           Health<span className="text-gray-600">Tech</span>
         </h2>
+        <h2 className="mb-3 text-center text-sm font-bold text-gray-800">Crea tu cuenta</h2>
+        <p className="text-center text-xs font-semibold text-gray-500 mb-3">Estamos para ayudarte</p>
         <ModalRegister onClose={closePage} />
       </div>
     </div>

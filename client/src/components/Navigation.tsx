@@ -13,6 +13,8 @@ const Navigation: FC<NavigationProps> = ({ onSpecialtyChange }) => {
       {error && <p className="text-red-500 mb-4 text-center">Error: {error}</p>}
       <ul className="m-0 flex list-none flex-wrap justify-center gap-4 p-0">
         <li
+          role="button"
+          aria-label="All specialties"
           className="cursor-pointer rounded-full border-2 border-black bg-gray-100 px-4 py-2 text-center text-base font-semibold text-gray-800 transition-colors duration-300 ease-in-out hover:bg-gray-800 hover:text-white"
           onClick={() => onSpecialtyChange("All")}
         >
@@ -21,6 +23,8 @@ const Navigation: FC<NavigationProps> = ({ onSpecialtyChange }) => {
         {specialties.map(especialidad => (
           <li
             key={especialidad}
+            role="button"
+            aria-label={`Specialty: ${especialidad}`}
             className="cursor-pointer rounded-full border-2 border-black bg-gray-100 px-4 py-2 text-center text-base font-semibold text-gray-800 transition-colors duration-300 ease-in-out hover:bg-gray-800 hover:text-white"
             onClick={() => onSpecialtyChange(especialidad)}
           >
@@ -33,4 +37,5 @@ const Navigation: FC<NavigationProps> = ({ onSpecialtyChange }) => {
 };
 
 export default Navigation;
+
 
