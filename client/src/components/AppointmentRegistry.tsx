@@ -1,46 +1,31 @@
-import Button from '@/components/Button';
-import useAppointmentForm from '@/hooks/useAppointmentForm'; // Importa el hook
-import { FormEvent } from 'react'; // Importa el tipo FormEvent
-import { DateTime } from 'luxon';
+import Button from "@/components/Button"
+import useAppointmentForm from "@/hooks/useAppointmentForm" // Importa el hook
+import { FormEvent } from "react" // Importa el tipo FormEvent
 
 const FormularioCitas = () => {
-  const {
-    formData,
-    loading,
-    errorMessage,
-    successMessage,
-    handleChange,
-    handleSubmit,
-  } = useAppointmentForm();
+  const { formData, loading, errorMessage, successMessage, handleChange, handleSubmit } =
+    useAppointmentForm()
 
   // Función para formatear la fecha y hora antes de enviar
   const handleSubmitForm = (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault(); // Prevenir el comportamiento predeterminado del formulario
+    e.preventDefault() // Prevenir el comportamiento predeterminado del formulario
 
     // Llamar a handleSubmit directamente ya que maneja la conversión
-    handleSubmit(e);
-  };
+    handleSubmit(e)
+  }
 
   return (
-    <div className="max-w-md mx-auto p-4 border rounded-lg shadow-lg bg-white">
+    <div className="mx-auto max-w-md rounded-lg border bg-white p-4 shadow-lg">
       <form onSubmit={handleSubmitForm} className="flex flex-col gap-4">
-      <label htmlFor="fecha_hora" className="flex flex-col text-sm">
-  Fecha y Hora:
-  <input
-    type="datetime-local"
-    id="fecha_hora"
-    name="fecha_hora"
-    value={
-      formData.fecha_hora
-        ? DateTime.fromISO(formData.fecha_hora).toFormat("yyyy-MM-dd\'T\'HH:mm")
-        : DateTime.now().toFormat("yyyy-MM-dd\'T\'HH:mm") // Valor por defecto si no hay fecha
-    }
-    onChange={handleChange}
-    className="mt-1 p-2 border rounded-md text-gray-800 bg-gray-100"
-    required
-    aria-label="Seleccionar fecha y hora para la cita"
-  />
-</label>
+        <label htmlFor="fecha_hora" className="flex flex-col text-sm">
+          Fecha y Hora:
+          <input
+            type="datetime-local"
+            name="fecha_hora"
+            value={formData.fecha_hora}
+            onChange={handleChange}
+          />
+        </label>
 
         <label htmlFor="patientId" className="flex flex-col text-sm">
           Paciente ID:
@@ -50,7 +35,7 @@ const FormularioCitas = () => {
             name="patientId"
             value={formData.patientId}
             onChange={handleChange}
-            className="mt-1 p-2 border rounded-md text-gray-800 bg-gray-100"
+            className="mt-1 rounded-md border bg-gray-100 p-2 text-gray-800"
             required
             readOnly
             aria-label="ID del paciente"
@@ -65,7 +50,7 @@ const FormularioCitas = () => {
             name="doctorId"
             value={formData.doctorId}
             onChange={handleChange}
-            className="mt-1 p-2 border rounded-md text-gray-800 bg-gray-100"
+            className="mt-1 rounded-md border bg-gray-100 p-2 text-gray-800"
             required
             readOnly
             aria-label="ID del doctor"
@@ -74,16 +59,19 @@ const FormularioCitas = () => {
 
         <Button
           type="submit"
-          label={loading ? 'Enviando...' : 'Enviar Cita'}
-          className="mt-3 p-2 bg-blue-500 text-white rounded hover:bg-blue-600 text-sm"
+          label={loading ? "Enviando..." : "Enviar Cita"}
+          className="bg-blue-500 hover:bg-blue-600 mt-3 rounded p-2 text-sm text-white"
         />
 
-        {errorMessage && <p className="mt-2 text-center text-red-500 font-bold text-sm">{errorMessage}</p>}
-        {successMessage && <p className="mt-2 text-center text-green-500 font-bold text-sm">{successMessage}</p>}
+        {errorMessage && (
+          <p className="mt-2 text-center text-sm font-bold text-red-500">{errorMessage}</p>
+        )}
+        {successMessage && (
+          <p className="text-green-500 mt-2 text-center text-sm font-bold">{successMessage}</p>
+        )}
       </form>
     </div>
-  );
-};
+  )
+}
 
-export default FormularioCitas;
-
+export default FormularioCitas
