@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useCreatePatient } from "@/hooks/useCreatePatient";
 import Input from "@/components/RegisterEntry";
 import Button from "@/components/Button";
-import { UserIcon, LastNameIcon, MailIcon, TelephoneIcon, AddressIcon } from "@/assets/icons"; // Asegúrate de que los iconos estén correctamente importados
+import { UserIcon, LastNameIcon, MailIcon, TelephoneIcon, AddressIcon } from "@/assets/icons"; 
 
 const PatientRegistrationForm = () => {
   const [name, setName] = useState("");
