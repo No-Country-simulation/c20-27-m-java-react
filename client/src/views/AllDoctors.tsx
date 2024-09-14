@@ -32,8 +32,8 @@ const AllDoctors = () => {
         <NotificationBell />
       </div>
 
-      <main className="pt-16 pb-16"> {/* Ajusta el padding-top y padding-bottom según sea necesario */}
-        <section className="p-4">
+      <main className=" pb-1"> {/* Ajusta el padding-top y padding-bottom según sea necesario */}
+        <section className="p-1">
           <div className="flex justify-center mb-4">
             <h2 className="text-xl font-semibold text-gray-800">Lista de doctores</h2>
           </div>
