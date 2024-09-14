@@ -53,9 +53,6 @@ const PatientRegistrationForm = () => {
 
   return (
     <div className="p-4 max-w-md mx-auto">
-      <h2 className="mb-3 text-center text-sm font-bold text-gray-800">Crea tu cuenta</h2>
-      <p className="text-center text-xs font-semibold text-gray-500">Estamos para ayudarte</p>
-
       <form className="mb-3 mt-5 flex w-full flex-col gap-4" onSubmit={handleSubmit}>
         <Input
           iconSrc={UserIcon}

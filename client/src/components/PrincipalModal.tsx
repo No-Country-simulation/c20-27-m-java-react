@@ -1,25 +1,57 @@
-import logoAzul from "@/assets/logoAzul.png";
+// src/components/PrincipalModal.tsx
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import useCheckEmail from "../hooks/useCheckEmail"; // Asegúrate de que la ruta sea correcta
+import logoAzul from "@/assets/logoAzul.png";
 
 const PrincipalModal = () => {
-  const [showModal, setShowModal] = useState(true);
+  const [email, setEmail] = useState('');
+  const { isLoading, emailExists, error, checkEmail } = useCheckEmail();
   const navigate = useNavigate();
+  const [showModal, setShowModal] = useState(true);
 
-  const handleLoginClick = () => {
-    setShowModal(false);
-    navigate("/loading"); 
+  const handleLoginClick = async () => {
+    if (email.trim() === "") {
+      alert("Por favor, ingresa un correo electrónico.");
+      return;
+    }
+
+    // Verifica si el correo electrónico ya está registrado
+    await checkEmail(email);
+
+    if (isLoading) {
+      // Puedes agregar un indicador de carga aquí si lo deseas
+      return;
+    }
+
+    if (error) {
+      alert(error);
+      return;
+    }
+
+    if (emailExists) {
+      // Si el correo electrónico existe, redirige a /loading
+      setShowModal(false);
+      navigate("/loading");
+    } else {
+      alert("El correo electrónico no está registrado.");
+      navigate("/"); 
+    }
   };
 
   const handleRegisterClick = () => {
     setShowModal(false);
-    navigate("/register"); 
+    navigate("/register");
+  };
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setEmail(e.target.value);
   };
 
   if (!showModal) return null;
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-gray-100 bg-opacity-1">
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-gray-100 bg-opacity-75">
       <div className="relative w-full max-w-sm p-4 bg-white rounded-lg shadow-lg flex flex-col items-center z-60 mb-5">
         <img 
           src={logoAzul} 
@@ -47,12 +79,14 @@ const PrincipalModal = () => {
           <input
             type="email"
             placeholder="Correo electrónico"
-            className="w-full p-2 border border-[#1c2a3a] rounded-md shadow-sm focus:outline-none focus:border-[#1c2a3a] focus:ring-2 focus:ring-[#1c2a3a] mb-1 text-center" // Cambiado border-gray-300 a border-[#1c2a3a]
+            value={email}
+            onChange={handleChange}
+            className="w-full p-2 border border-[#1c2a3a] rounded-md shadow-sm focus:outline-none focus:border-[#1c2a3a] focus:ring-2 focus:ring-[#1c2a3a] mb-1 text-center"
           />
           <input
             type="password"
             placeholder="Contraseña"
-            className="w-full p-2 border border-[#1c2a3a] rounded-md shadow-sm focus:outline-none focus:border-[#1c2a3a] focus:ring-2 focus:ring-[#1c2a3a] mb-2 text-center" // Cambiado border-gray-300 a border-[#1c2a3a]
+            className="w-full p-2 border border-[#1c2a3a] rounded-md shadow-sm focus:outline-none focus:border-[#1c2a3a] focus:ring-2 focus:ring-[#1c2a3a] mb-2 text-center"
           />
           <div className="flex space-x-2 mt-4 justify-center"> 
             <button
@@ -74,7 +108,7 @@ const PrincipalModal = () => {
               onClick={handleRegisterClick} 
               className="inline-flex items-center px-4 py-1.5 bg-gray-500 text-white rounded-md font-semibold hover:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-[#1c2a3a]"
             >
-              Registrarse
+              Crear cuenta
             </button>
           </div>
         </form>
@@ -84,9 +118,3 @@ const PrincipalModal = () => {
 };
 
 export default PrincipalModal;
-
-
-
-
-
-
