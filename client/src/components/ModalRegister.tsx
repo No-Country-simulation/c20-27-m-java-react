@@ -14,7 +14,7 @@ const ModalRegister = ({}: ModalRegisterProps) => {
   }
 
   return (
-    <div className="flex flex-col items-center gap-4">
+    <div className="flex flex-col items-center gap-4 bg-white">
       {!selectedRole ? (
         <>
           <span className="text-sm font-medium text-gray-700">Selecciona tu rol:</span>

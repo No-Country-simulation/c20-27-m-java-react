@@ -1,32 +1,53 @@
-import { useState } from "react"
-import { ArrowIcon } from "@/assets/icons"
-import SearchDoctors from "@/components/SearchDoctors"
-import Navigation from "@/components/Navigation"
-import DoctorsList from "@/components/DoctorsList"
-import { Link } from "react-router-dom"
+import { useState } from "react";
+import { ArrowIcon } from "@/assets/icons";
+import SearchInput from "@/components/SearchInput";
+import DoctorsList from "@/components/DoctorsList";
+import { Link } from "react-router-dom";
+import Header from "./Header";
+import NotificationBell from "@/components/NotificationBell";
+import Navigation from "@/components/Navigation";
 
 const AllDoctors = () => {
-  const [selectedSpecialty, setSelectedSpecialty] = useState<string>("All")
+  const [selectedLastName, setSelectedLastName] = useState<string>("");
+  const [selectedSpecialty, setSelectedSpecialty] = useState<string>("");
+
+  const handleLastNameChange = (lastname: string) => {
+    setSelectedLastName(lastname);
+  };
 
   const handleSpecialtyChange = (specialty: string) => {
-    setSelectedSpecialty(specialty)
-  }
+    setSelectedSpecialty(specialty);
+  };
 
   return (
-    <section className="mt-4">
-      <div className="mb-3 flex items-center">
-        <Link to="/home" className="mr-auto">
-          <figure>
-            <img src={ArrowIcon} alt="" />
+    <>
+      <div className="relative">
+        <Link to="/home" className="absolute top-4 left-4 flex items-center">
+          <figure className="w-8 h-8">
+            <img src={ArrowIcon} alt="Volver a inicio" className="w-full h-full" />
           </figure>
         </Link>
-        <h2 className="mr-auto text-xl font-semibold text-[#374151]">All Doctors</h2>
+        <Header />
+        <div className="absolute top-4 right-4 flex items-center">
+          <NotificationBell />
+        </div>
       </div>
-      <SearchDoctors onSearch={handleSpecialtyChange} />
-      <Navigation onSpecialtyChange={handleSpecialtyChange} />
-      <DoctorsList selectedSpecialty={selectedSpecialty} />
-    </section>
-  )
-}
 
-export default AllDoctors
+      <main className="pt-1">
+        <section className="p-1">
+          <div className="flex justify-center mb-4">
+            <h2 className="text-xl font-semibold text-gray-800">Lista de doctores</h2>
+          </div>
+          <SearchInput onSearch={handleLastNameChange} />
+          <Navigation onSpecialtyChange={handleSpecialtyChange} />
+          <DoctorsList 
+            selectedLastName={selectedLastName} 
+            selectedSpecialty={selectedSpecialty} 
+          />
+        </section>
+      </main>
+    </>
+  );
+};
+
+export default AllDoctors;

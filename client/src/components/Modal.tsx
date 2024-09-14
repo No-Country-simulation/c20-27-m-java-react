@@ -1,28 +1,27 @@
-import { Link } from "react-router-dom"
-import DoctorProfile from "@/assets/doctorprofile.svg"
+import { Link } from "react-router-dom";
+import DefaultImage from "@/assets/icons/photoDefault.svg";
 
 export interface Doctor {
-  idMedico: number
-  nombre: string
-  apellido: string
-  especialidad: string
-  email: string
-  telefono: string
+  idMedico: number;
+  nombre: string;
+  apellido: string;
+  especialidad: string;
+  email: string;
+  telefono: string;
 }
 
 interface ModalProps {
-  doctor: Doctor
+  doctor: Doctor;
 }
 
 const Modal = ({ doctor }: ModalProps) => {
   return (
     <Link
-      to={`/doctor/${doctor.nombre}`}
-      key={doctor.idMedico}
-      className="absolute top-[50px] z-50 flex h-[125px] w-full rounded-xl bg-[#F3F4F6] pl-2 pt-2"
+      to={`/doctor/${doctor.idMedico}`} // Cambié esto a idMedico para una mejor identificación del doctor
+      className="relative flex h-[125px] w-full rounded-xl bg-[#F3F4F6] p-2"
     >
-      <figure className="mr-4 size-[109px]">
-        <img src={DoctorProfile} alt="" />
+      <figure className="mr-4 w-[109px] h-[109px]"> {/* Asegúrate de definir el tamaño */}
+        <img src={DefaultImage} alt="Imagen del Doctor" className="w-full h-full object-cover" />
       </figure>
 
       <div className="pt-2">
@@ -33,7 +32,7 @@ const Modal = ({ doctor }: ModalProps) => {
         <p className="text-sm text-[#4B5563]">{doctor.email}</p>
       </div>
     </Link>
-  )
+  );
 }
 
-export default Modal
+export default Modal;
