@@ -6,6 +6,7 @@ import { Link } from "react-router-dom";
 import Header from "./Header";
 import NotificationBell from "@/components/NotificationBell";
 import Navigation from "@/components/Navigation";
+import Footer from "@/components/Footer";
 
 const AllDoctors = () => {
   const [selectedLastName, setSelectedLastName] = useState<string>("");
@@ -20,21 +21,19 @@ const AllDoctors = () => {
   };
 
   return (
-    <>
-      <div className="relative">
-        <Link to="/home" className="absolute top-4 left-4 flex items-center">
-          <figure className="w-8 h-8">
-            <img src={ArrowIcon} alt="Volver a inicio" className="w-full h-full" />
-          </figure>
-        </Link>
-        <Header />
-        <div className="absolute top-4 right-4 flex items-center">
-          <NotificationBell />
-        </div>
+    <div className="relative min-h-screen">
+      <Link to="/home" className="absolute top-4 left-4 flex items-center">
+        <figure className="w-8 h-8">
+          <img src={ArrowIcon} alt="Volver a inicio" className="w-full h-full" />
+        </figure>
+      </Link>
+      <Header />
+      <div className="absolute top-4 right-4 flex items-center">
+        <NotificationBell />
       </div>
 
-      <main className="pt-1">
-        <section className="p-1">
+      <main className="pt-16 pb-16"> {/* Ajusta el padding-top y padding-bottom según sea necesario */}
+        <section className="p-4">
           <div className="flex justify-center mb-4">
             <h2 className="text-xl font-semibold text-gray-800">Lista de doctores</h2>
           </div>
@@ -46,8 +45,10 @@ const AllDoctors = () => {
           />
         </section>
       </main>
-    </>
+      <Footer />
+    </div>
   );
 };
 
 export default AllDoctors;
+
