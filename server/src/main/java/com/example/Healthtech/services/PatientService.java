@@ -17,12 +17,8 @@ public interface PatientService {
     void restorePatient(Long id);
     //List<Patient> saveAllPatients(List<Patient> patients);
     Patient updatePatientById(Long id_patient, Patient updatedPatient);
-
-    ResponseEntity<?> create(Patient patient);
-
+    //ResponseEntity<?> create(Patient patient); //creador de paciente
     MedicalHistory addMedicalHistory(Long patientId, MedicalHistory medicalHistory);
-
     List<MedicalHistory> getMedicalHistoriesByPatient(Long patientId);
-
     Patient createPatientWithUser(@Valid Patient patient, Long userId);
 }
