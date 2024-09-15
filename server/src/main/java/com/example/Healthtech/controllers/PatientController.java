@@ -25,7 +25,7 @@ public class PatientController {
         return ResponseEntity.ok().body(List);
     }
 
-    /*@PostMapping("/create")
+    /*@PostMapping("/create") // endpoint de paciente sin realcion con usuario
     public ResponseEntity<?> createPatient(@RequestBody Patient patient) {
         return ResponseEntity.ok().body(patientService.create(patient));
     }*/

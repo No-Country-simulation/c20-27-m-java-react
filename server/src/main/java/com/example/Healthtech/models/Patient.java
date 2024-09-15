@@ -34,7 +34,6 @@ public class Patient {
     @NotNull
     private String address;
 
-
     // Relación uno a muchos con la entidad MedicalHistory
     @OneToMany(mappedBy = "patient", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonIgnore // Se ñade esta anotación para evitar la serialización recursiva
@@ -46,7 +45,6 @@ public class Patient {
     private User userName;
 
     private boolean deleted = false;
-
 
     public Patient(String name, String lastName, String email, String telephone, String address) {
         this.name = name;

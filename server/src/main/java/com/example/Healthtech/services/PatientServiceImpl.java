@@ -30,7 +30,8 @@ public class PatientServiceImpl implements PatientService{
         return patientRepository.findAll();
     }
 
-    public ResponseEntity<?> create(Patient patient) {
+    //metodo para crear un paciente sin relación con usuario
+   /* public ResponseEntity<?> create(Patient patient) {
         try {
             validatePatient(patient); //valido los datos
             patientRepository.save(patient);//guardo el paciente
@@ -38,12 +39,13 @@ public class PatientServiceImpl implements PatientService{
         } catch (UserInvalidException e) {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
-    }
+    }*/
     //metodo para crear con relacion a user
     public Patient createPatientWithUser(Patient patient, Long userId) {
         try {
             User user = userRepository.findById(userId).get();
             patient.setUserName(user);
+            validatePatient(patient);
             return patientRepository.save(patient);
         } catch (Exception e) {
             throw new RuntimeException("Error al crear el paciente.", e);
