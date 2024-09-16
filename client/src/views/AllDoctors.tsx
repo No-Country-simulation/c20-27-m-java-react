@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 import Header from "./Header";
 import NotificationBell from "@/components/NotificationBell";
 import Navigation from "@/components/Navigation";
-import Footer from "@/components/Footer";
+import FooterPrincipal from "@/components/PrincipalFooter";
 
 const AllDoctors = () => {
   const [selectedLastName, setSelectedLastName] = useState<string>("");
@@ -45,7 +45,7 @@ const AllDoctors = () => {
           />
         </section>
       </main>
-      <Footer />
+      <FooterPrincipal />
     </div>
   );
 };
