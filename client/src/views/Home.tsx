@@ -6,14 +6,14 @@ import HeroImage from "@/components/HeroImage";
 import Footer from "@/components/Footer";
 
 const Home = () => {
-  // Define la función que manejará la búsqueda
+ 
   const handleSearch = (lastname: string) => {
     console.log("Buscando doctor con apellido:", lastname);
-    // Aquí puedes manejar la lógica de búsqueda, por ejemplo, actualizar el estado o hacer una solicitud de API.
+    
   };
 
   return (
-    <>      <main className="pt-1"> {/* Ajusta el padding-top según la altura del encabezado */}
+    <>      <main className="pt-1"> 
         <section>
         <HeaderPrincipal />
           <SearchInput onSearch={handleSearch} />

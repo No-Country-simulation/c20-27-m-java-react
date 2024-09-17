@@ -21,7 +21,7 @@ const AllDoctors = () => {
   };
 
   return (
-    <div className="relative min-h-screen">
+    <div className="relative min-h-screen flex flex-col">
       <Link to="/home" className="absolute top-4 left-4 flex items-center">
         <figure className="w-8 h-8">
           <img src={ArrowIcon} alt="Volver a inicio" className="w-full h-full" />
@@ -32,7 +32,7 @@ const AllDoctors = () => {
         <NotificationBell />
       </div>
 
-      <main className=" pb-1"> {/* Ajusta el padding-top y padding-bottom según sea necesario */}
+      <main className="flex-grow pb-1"> 
         <section className="p-1">
           <div className="flex justify-center mb-4">
             <h2 className="text-xl font-semibold text-gray-800">Lista de doctores</h2>
@@ -45,10 +45,11 @@ const AllDoctors = () => {
           />
         </section>
       </main>
-      <FooterPrincipal />
+      <footer className="w-full absolute bottom-0 left-0 bg-gray-800 text-white">
+        <FooterPrincipal />
+      </footer>
     </div>
   );
 };
 
 export default AllDoctors;
-
