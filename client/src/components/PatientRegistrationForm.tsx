@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useCreatePatient } from "@/hooks/useCreatePatient";
 import Input from "@/components/RegisterEntry";
 import Button from "@/components/Button";
-import { UserIcon, LastNameIcon, MailIcon, TelephoneIcon, AddressIcon } from "@/assets/icons"; 
+import { UserIcon, LastNameIcon, MailIcon, TelephoneIcon, AddressIcon } from "@/assets/icons";
 
 const PatientRegistrationForm = () => {
   const [name, setName] = useState("");
@@ -13,32 +13,42 @@ const PatientRegistrationForm = () => {
   const [errorMessage, setErrorMessage] = useState("");
   const [successMessage, setSuccessMessage] = useState("");
 
+  const userId = "12345"; // Reemplazar con el userId correcto
+
+  // Este log es importante para ver si useCreatePatient se inicializa bien
+  console.log("Patient object: ", { name, lastName, email, telephone, address });
+
   const [success, loading, error, createPatient] = useCreatePatient({
     name,
     lastName,
     email,
     telephone,
     address,
-  });
+  }, userId);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    console.log("handleSubmit llamado");
 
     if (!name || !lastName || !email || !telephone || !address) {
+      console.log("Campos faltantes");
       setErrorMessage("Todos los campos son requeridos.");
       return;
     }
 
     const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailPattern.test(email)) {
+      console.log("Correo electrónico no válido");
       setErrorMessage("El correo electrónico no es válido.");
       return;
     }
 
     setErrorMessage("");
-    await createPatient();
+    console.log("Llamando a createPatient...");
+    await createPatient(); 
 
     if (success) {
+      console.log("Paciente creado exitosamente");
       setName("");
       setLastName("");
       setEmail("");
@@ -46,6 +56,7 @@ const PatientRegistrationForm = () => {
       setAddress("");
       setSuccessMessage("Paciente creado exitosamente");
     } else if (error) {
+      console.log("Error al crear paciente:", error);
       setSuccessMessage("");
       setErrorMessage(error);
     }
@@ -94,14 +105,14 @@ const PatientRegistrationForm = () => {
           value={address}
           onChange={e => setAddress(e.target.value)}
         />
+        <div className="flex justify-center mb-4">
+          <Button 
+            label={loading ? "Creando..." : "Crear Paciente"} 
+            type="submit" 
+            className="w-full max-w-xs" 
+          />
+        </div>
       </form>
-
-      <div className="flex justify-center mb-4">
-        <Button 
-          label={loading ? "Creando..." : "Crear Paciente"} 
-          className="w-full max-w-xs" 
-        />
-      </div>
 
       {errorMessage && <p className="mt-3 text-center font-bold text-red-500">{errorMessage}</p>}
       {successMessage && (
