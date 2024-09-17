@@ -147,9 +147,9 @@
 ----------------------------------------------------
 - Enpoints Pacientes:
   - Registro:
-    - URL: /patients/create (registro de un solo perfil)
+    - URL: /patients/create/{user_id}
     - Método: POST
-    - Descripción: Se ingresan los atributos correspondientes para la creación del perfil y su registro en base de datos.
+    - Descripción: Se ingresan los atributos correspondientes para la creación del perfil y también se establece, en la URL, su relación con el usuario creado en primera instancia.
     - Cuerpo de solicitud:
       ```
       {
@@ -505,3 +505,89 @@
             "deleted": false
           }
           ```
+      ----------------------------------------------
+      - Endpoints Usuarios:
+        - Registro:
+          - URL: .../users/create
+          - Método: POST
+          - Descripción: Se ingresan los atributos correspondientes para la creación del perfil y su registro en base de datos.
+          - Cuerpo de Solicitud:
+            ```
+            {
+              "userName": "UserName1",
+              "password": "44444"
+            }
+            ```
+          - Respuesta exitosa: Código 200 OK
+        ----------------------------------------------
+        - Login:
+          - URL: .../users/login
+          - Método: POST
+          - Descripción: Se verifican que los datos creados sean los correctos para poder dar paso al home.
+          - Cuerpo de Solicitud:
+            ```
+            {
+              "userName": "UserName1",
+              "password": "44444"
+            }
+            ```
+             - Respuesta exitosa: Código 200 OK
+          ---------------------------------------------
+        - Update:
+          - URL: .../users/update/1
+          - Método: PUT
+          - Descripción: Se ingresan el n° de id para realizar búsqueda de un perfil determinado para actualizar sus datos.
+          - Cuerpo de Solicitud:
+             ```
+            {
+              "userName": "nuevoUserName",
+              "password": "nuevoPass"
+            }
+            ```
+          - Respuesta exitosa: Código 200 OK
+             ```
+            {
+              "userName": "nuevoUserName",
+              "password": "nuevoPass"
+            }
+            ```
+        -------------------------------------------
+        - Delete:
+          - URL: .../users/delete/1
+          - Método: DELETE
+          - Descripción: Se ingresan el n° de id para eliminar el usuario elegido.
+          - Cuerpo de Solicitud: .../users/delete/1
+          - Respuesta exitosa: Código 200 OK
+        -------------------------------------------
+        - Listado de usuarios:
+           - URL: .../users
+           - Método: GET
+           - Descripción: Se obtiene un listado de los perfiles cargados en la base de datos.
+           - Cuerpo de solicitud: ninguno
+           - Respuesta exitosa: Código 200 OK
+             ```
+              {
+               "userId": 1,  
+               "userName": "nuevoUserName",
+               "password": "nuevoPass"
+              },
+              {
+               "userId": 2,  
+               "userName": "UserName1",
+                "password": "44444"
+              }
+            ```
+        ----------------------------------------------
+        - Búsqueda por ID:
+          - URL: .../users/{id}
+          - Método: GET
+          - Descripción: Se ingresan el n° de id para realizar búsqueda de un perfil determinado.
+          - Solicitud: .../users/1
+          - Respuesta exitosa: código 200 OK
+            ```
+            {
+               "userId": 1,  
+               "userName": "nuevoUserName",
+               "password": "nuevoPass"
+            }
+            ```           
