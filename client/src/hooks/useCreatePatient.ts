@@ -1,20 +1,22 @@
-import { useState } from "react"
-import axios from "axios"
+import { useState } from "react";
+import axios from "axios";
 
 interface Patient {
-  name: string
-  lastName: string
-  email: string
-  telephone: string
-  address: string
+  name: string;
+  lastName: string;
+  email: string;
+  telephone: string;
+  address: string;
 }
 
-export const useCreatePatient = (patient: Patient) => {
-  const [success, setSuccess] = useState(false)
-  const [loading, setLoading] = useState(false)
-  const [error, setError] = useState<string | null>(null)
+export const useCreatePatient = (patient: Patient, userId: string) => {
+  const [success, setSuccess] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
   const createPatient = async () => {
+    console.log("Iniciando la creación de paciente...");
+
     if (
       !patient.name ||
       !patient.lastName ||
@@ -22,39 +24,47 @@ export const useCreatePatient = (patient: Patient) => {
       !patient.telephone ||
       !patient.address
     ) {
-      setError("Todos los campos son requeridos.")
-      return
+      console.log("Faltan campos requeridos.");
+      setError("Todos los campos son requeridos.");
+      return;
     }
 
     try {
-      setLoading(true)
-      setError(null)
+      setLoading(true);
+      setError(null);
 
-      // Realiza la solicitud POST al endpoint para crear un paciente
-      await axios.post(
-        "https://c20-27-m-java-react-production-b1fb.up.railway.app/patients/create",
+      const response = await axios.post(
+        `https://c20-27-m-java-react-production-b1fb.up.railway.app/patients/create/${userId}`,
         patient,
         {
           headers: {
             "Content-Type": "application/json",
           },
-        },
-      )
+        }
+      );
 
-      setSuccess(true)
-    } catch (err) {
-      // Maneja el error correctamente
-      if (axios.isAxiosError(err)) {
-        // Error de Axios
-        setError(err.response?.data?.message || "Error al crear paciente")
+      console.log("Respuesta del servidor:", response.data);
+
+      if (response.status === 200) {
+        setSuccess(true);
       } else {
-        // Error genérico
-        setError("Error inesperado al crear paciente")
+        setError(`Error: ${response.statusText}`);
+      }
+    } catch (err: unknown) {
+      console.error("Error en la solicitud:", err);
+
+      if (axios.isAxiosError(err)) {
+        setError(err.response?.data?.error || "Error al crear paciente");
+      } else if (err instanceof Error) {
+        setError(err.message || "Error inesperado al crear paciente");
+      } else {
+        setError("Error inesperado al crear paciente");
       }
     } finally {
-      setLoading(false)
+      setLoading(false);
+      console.log("Proceso completado.");
     }
-  }
+  };
 
-  return [success, loading, error, createPatient] as const
-}
+  return [success, loading, error, createPatient] as const;
+};
