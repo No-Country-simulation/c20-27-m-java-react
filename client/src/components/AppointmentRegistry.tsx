@@ -1,16 +1,13 @@
 import Button from "@/components/Button"
-import useAppointmentForm from "@/hooks/useAppointmentForm" // Importa el hook
-import { FormEvent } from "react" // Importa el tipo FormEvent
+import useAppointmentForm from "@/hooks/useAppointmentForm"
+import { FormEvent } from "react"
 
 const FormularioCitas = () => {
   const { formData, loading, errorMessage, successMessage, handleChange, handleSubmit } =
     useAppointmentForm()
 
-  // Función para formatear la fecha y hora antes de enviar
   const handleSubmitForm = (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault() // Prevenir el comportamiento predeterminado del formulario
-
-    // Llamar a handleSubmit directamente ya que maneja la conversión
+    e.preventDefault()
     handleSubmit(e)
   }
 
@@ -24,6 +21,8 @@ const FormularioCitas = () => {
             name="fecha_hora"
             value={formData.fecha_hora}
             onChange={handleChange}
+            required
+            className="mt-1 rounded-md border p-2"
           />
         </label>
 
@@ -34,10 +33,8 @@ const FormularioCitas = () => {
             id="patientId"
             name="patientId"
             value={formData.patientId}
-            onChange={handleChange}
-            className="mt-1 rounded-md border bg-gray-100 p-2 text-gray-800"
-            required
             readOnly
+            className="mt-1 rounded-md border bg-gray-100 p-2 text-gray-800"
             aria-label="ID del paciente"
           />
         </label>
@@ -49,10 +46,8 @@ const FormularioCitas = () => {
             id="doctorId"
             name="doctorId"
             value={formData.doctorId}
-            onChange={handleChange}
-            className="mt-1 rounded-md border bg-gray-100 p-2 text-gray-800"
-            required
             readOnly
+            className="mt-1 rounded-md border bg-gray-100 p-2 text-gray-800"
             aria-label="ID del doctor"
           />
         </label>
@@ -61,6 +56,7 @@ const FormularioCitas = () => {
           type="submit"
           label={loading ? "Enviando..." : "Enviar Cita"}
           className="bg-blue-500 hover:bg-blue-600 mt-3 rounded p-2 text-sm text-white"
+          aria-label="Enviar formulario de cita"
         />
 
         {errorMessage && (
