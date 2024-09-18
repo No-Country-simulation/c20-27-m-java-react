@@ -1,10 +1,11 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useCreatePatient } from "@/hooks/useCreatePatient";
 import Input from "@/components/RegisterEntry";
 import Button from "@/components/Button";
 import { UserIcon, LastNameIcon, MailIcon, TelephoneIcon, AddressIcon } from "@/assets/icons";
 
 const PatientRegistrationForm = () => {
+  const [userId, setUserId] = useState<string | null>(null); // Inicialmente null o un valor por defecto
   const [name, setName] = useState("");
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
@@ -13,42 +14,52 @@ const PatientRegistrationForm = () => {
   const [errorMessage, setErrorMessage] = useState("");
   const [successMessage, setSuccessMessage] = useState("");
 
-  const userId = "12345"; // Reemplazar con el userId correcto
+  // Obtén el userId al montar el componente
+  useEffect(() => {
+    const fetchUserId = async () => {
+      try {
+        // Ejemplo: hacer una solicitud a tu API para obtener el userId
+        const response = await fetch('/api/getUserId'); // Cambia esta URL según tu implementación
+        const data = await response.json();
+        setUserId(data.userId);
+      } catch (error) {
+        console.error("Error al obtener el userId:", error);
+        setErrorMessage("Error al obtener el identificador del usuario.");
+      }
+    };
 
-  // Este log es importante para ver si useCreatePatient se inicializa bien
-  console.log("Patient object: ", { name, lastName, email, telephone, address });
+    fetchUserId();
+  }, []);
 
-  const [success, loading, error, createPatient] = useCreatePatient({
-    name,
-    lastName,
-    email,
-    telephone,
-    address,
-  }, userId);
+  const [success, loading, error, createPatient] = useCreatePatient(
+    {
+      name,
+      lastName,
+      email,
+      telephone,
+      address,
+    },
+    userId // Pasa el userId obtenido
+  );
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    console.log("handleSubmit llamado");
 
     if (!name || !lastName || !email || !telephone || !address) {
-      console.log("Campos faltantes");
       setErrorMessage("Todos los campos son requeridos.");
       return;
     }
 
     const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailPattern.test(email)) {
-      console.log("Correo electrónico no válido");
       setErrorMessage("El correo electrónico no es válido.");
       return;
     }
 
     setErrorMessage("");
-    console.log("Llamando a createPatient...");
-    await createPatient(); 
+    await createPatient();
 
     if (success) {
-      console.log("Paciente creado exitosamente");
       setName("");
       setLastName("");
       setEmail("");
@@ -56,7 +67,6 @@ const PatientRegistrationForm = () => {
       setAddress("");
       setSuccessMessage("Paciente creado exitosamente");
     } else if (error) {
-      console.log("Error al crear paciente:", error);
       setSuccessMessage("");
       setErrorMessage(error);
     }
@@ -105,11 +115,12 @@ const PatientRegistrationForm = () => {
           value={address}
           onChange={e => setAddress(e.target.value)}
         />
+
         <div className="flex justify-center mb-4">
           <Button 
             label={loading ? "Creando..." : "Crear Paciente"} 
-            type="submit" 
-            className="w-full max-w-xs" 
+            className="w-full max-w-xs"
+            type="submit"
           />
         </div>
       </form>
