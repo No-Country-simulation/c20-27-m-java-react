@@ -1,120 +1,150 @@
-// src/components/PrincipalModal.tsx
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
-import useCheckEmail from "../hooks/useCheckEmail"; // Asegúrate de que la ruta sea correcta
-import logoAzul from "@/assets/logoAzul.png";
+import { useState } from "react"
+import { useNavigate } from "react-router-dom"
+import logoAzul from "@/assets/logoAzul.png"
+import useCheckUsername from "@/hooks/useCheckUsername"
+import CreateUserModal from "./CreateUserModal"
+import ModalRegister from "./ModalRegister"
 
 const PrincipalModal = () => {
-  const [email, setEmail] = useState('');
-  const { isLoading, emailExists, error, checkEmail } = useCheckEmail();
-  const navigate = useNavigate();
-  const [showModal, setShowModal] = useState(true);
+  const [username, setUsername] = useState("")
+  const [password, setPassword] = useState("")
+  const [showModal, setShowModal] = useState(true)
+  const [showCreateUserModal, setShowCreateUserModal] = useState(false)
+  const [showModalRegister, setShowModalRegister] = useState(false)
+  const [errorMessage, setErrorMessage] = useState("")
+  const navigate = useNavigate()
+
+  const { isLoading, authenticated, error, CheckCredentials } = useCheckUsername()
 
   const handleLoginClick = async () => {
-    if (email.trim() === "") {
-      alert("Por favor, ingresa un correo electrónico.");
-      return;
+    if (username.trim() === "" || password.trim() === "") {
+      alert("Por favor, ingresa un usuario y contraseña")
+      return
     }
 
-    // Verifica si el correo electrónico ya está registrado
-    await checkEmail(email);
+    await CheckCredentials(username, password)
 
     if (isLoading) {
-      // Puedes agregar un indicador de carga aquí si lo deseas
-      return;
+      return
     }
 
     if (error) {
-      alert(error);
-      return;
+      setErrorMessage(
+        "Credenciales no válidas. Intenta de nuevo o haz click en el botón de crear cuenta.",
+      )
+      setUsername("")
+      setPassword("")
+      return
     }
 
-    if (emailExists) {
-      // Si el correo electrónico existe, redirige a /loading
-      setShowModal(false);
-      navigate("/loading");
-    } else {
-      alert("El correo electrónico no está registrado.");
-      navigate("/"); 
+    if (authenticated) {
+      setShowModal(false)
+      navigate("/home")
     }
-  };
+  }
 
-  const handleRegisterClick = () => {
-    setShowModal(false);
-    navigate("/register");
-  };
+  const handleCreateAccountClick = () => {
+    setShowModal(false)
+    setShowCreateUserModal(true)
+  }
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setEmail(e.target.value);
-  };
+  const handleCloseCreateUserModal = () => {
+    setShowCreateUserModal(false)
+    setShowModalRegister(true)
+  }
 
-  if (!showModal) return null;
+  const handleOpenModalRegister = () => {
+    setShowCreateUserModal(false)
+    setShowModalRegister(true)
+  }
+
+  const handleCloseModalRegister = () => {
+    setShowModalRegister(false)
+    setShowModal(true)
+  }
+
+  const handleUserNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setUsername(e.target.value)
+    if (errorMessage) {
+      setErrorMessage("")
+    }
+  }
+
+  const handlePasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setPassword(e.target.value)
+    if (errorMessage) {
+      setErrorMessage("")
+    }
+  }
+
+  if (!showModal && !showCreateUserModal && !showModalRegister) return null
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-gray-100 bg-opacity-75">
-      <div className="relative w-full max-w-sm p-4 bg-white rounded-lg shadow-lg flex flex-col items-center z-60 mb-5">
-        <img 
-          src={logoAzul} 
-          alt="Logo" 
-          className="mt-4 mx-auto mb-3 h-10 max-w-full" 
-        />
-        <h2 className="mb-4 text-xl text-gray-800">
-          Health
-          <span className="text-gray-600">Tech</span>
-        </h2>
-        <p className="text-xl font-medium text-gray-600 mb-1 text-center">
-          ¡Bienvenido(a)!
-        </p>
-        <span className="text-md font-medium text-gray-800 mb-3 mt-3 text-center">
-          Inicia sesión y optimiza tu experiencia de salud.
-        </span>
-       
-        <form
-          onSubmit={(e) => {
-            e.preventDefault();
-            handleLoginClick(); 
-          }}
-          className="space-y-2 w-full max-w-xs"
-        >
-          <input
-            type="email"
-            placeholder="Correo electrónico"
-            value={email}
-            onChange={handleChange}
-            className="w-full p-2 border border-[#1c2a3a] rounded-md shadow-sm focus:outline-none focus:border-[#1c2a3a] focus:ring-2 focus:ring-[#1c2a3a] mb-1 text-center"
-          />
-          <input
-            type="password"
-            placeholder="Contraseña"
-            className="w-full p-2 border border-[#1c2a3a] rounded-md shadow-sm focus:outline-none focus:border-[#1c2a3a] focus:ring-2 focus:ring-[#1c2a3a] mb-2 text-center"
-          />
-          <div className="flex space-x-2 mt-4 justify-center"> 
-            <button
-              type="submit"
-              className="inline-flex items-center px-4 py-1.5 bg-[#1c2a3a] text-white rounded-md font-semibold hover:bg-[#162328] focus:outline-none focus:ring-2 focus:ring-[#1c2a3a]"
-              id="Ingresar"
-            >
-              Ingresar
-            </button>
-            <button
-              type="button"
-              onClick={() => setShowModal(false)}
-              className="inline-flex items-center px-4 py-1.5 bg-[#1c2a3ad2] text-white rounded-md font-semibold hover:bg-gray-500 focus:outline-none focus:ring-2 focus:ring-[#1c2a3a]"
-            >
-              Olvidé mi contraseña
-            </button>
-            <button
-              type="button"
-              onClick={handleRegisterClick} 
-              className="inline-flex items-center px-4 py-1.5 bg-gray-500 text-white rounded-md font-semibold hover:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-[#1c2a3a]"
-            >
-              Crear cuenta
-            </button>
-          </div>
-        </form>
-      </div>
-    </div>
-  );
-};
+    <>
+      {showModal && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-gray-100 bg-opacity-75">
+          <div className="z-60 relative mb-5 flex w-full max-w-sm flex-col items-center rounded-lg bg-white p-4 shadow-lg">
+            <img src={logoAzul} alt="Logo" className="mx-auto mb-3 mt-4 h-10 max-w-full" />
+            <h2 className="mb-4 text-xl text-gray-800">
+              Health
+              <span className="text-gray-600">Tech</span>
+            </h2>
+            <p className="mb-1 text-center text-xl font-medium text-gray-600">¡Bienvenido(a)!</p>
+            <span className="text-md mb-3 mt-3 text-center font-medium text-gray-800">
+              Inicia sesión y optimiza tu experiencia de salud.
+            </span>
 
-export default PrincipalModal;
+            <form
+              onSubmit={e => {
+                e.preventDefault()
+                handleLoginClick()
+              }}
+              className="w-full max-w-xs space-y-2"
+            >
+              <input
+                type="text"
+                placeholder="Nombre de usuario"
+                value={username}
+                onChange={handleUserNameChange}
+                className="mb-1 w-full rounded-md border border-[#1c2a3a] p-2 text-center shadow-sm focus:border-[#1c2a3a] focus:outline-none focus:ring-2 focus:ring-[#1c2a3a]"
+              />
+              <input
+                type="password"
+                placeholder="Contraseña"
+                value={password}
+                onChange={handlePasswordChange}
+                className="mb-2 w-full rounded-md border border-[#1c2a3a] p-2 text-center shadow-sm focus:border-[#1c2a3a] focus:outline-none focus:ring-2 focus:ring-[#1c2a3a]"
+              />
+              <div className="mt-4 flex justify-center space-x-2">
+                <button
+                  type="submit"
+                  className="inline-flex items-center rounded-md bg-[#1c2a3a] px-4 py-1.5 font-semibold text-white hover:bg-[#162328] focus:outline-none focus:ring-2 focus:ring-[#1c2a3a]"
+                  id="Ingresar"
+                >
+                  Ingresar
+                </button>
+
+                <button
+                  type="button"
+                  onClick={handleCreateAccountClick}
+                  className="inline-flex items-center rounded-md bg-gray-500 px-4 py-1.5 font-semibold text-white hover:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-[#1c2a3a]"
+                >
+                  Crear cuenta
+                </button>
+              </div>
+              {errorMessage && <p className="mt-4 text-center text-red-600">{errorMessage}</p>}
+            </form>
+          </div>
+        </div>
+      )}
+
+      {showCreateUserModal && (
+        <CreateUserModal onClose={handleCloseCreateUserModal} onSuccess={handleOpenModalRegister} />
+      )}
+
+      {showModalRegister && <ModalRegister onClose={handleCloseModalRegister} />}
+    </>
+  )
+}
+
+export default PrincipalModal

@@ -15,6 +15,11 @@ export const useCreatePatient = (patient: Patient) => {
   const [error, setError] = useState<string | null>(null)
 
   const createPatient = async () => {
+    const userId = localStorage.getItem("userId");
+    if(!userId) {
+      setError("Usuario no encontrado");
+      return;
+    }
     if (
       !patient.name ||
       !patient.lastName ||
@@ -31,8 +36,8 @@ export const useCreatePatient = (patient: Patient) => {
       setError(null)
 
       const response = await axios.post(
-        //`https://c20-27-m-java-react-production-b1fb.up.railway.app/patients/create/${userId}`,
-        `http://localhost:8080/patients/create/${userId}`,
+        `https://c20-27-m-java-react-production-b1fb.up.railway.app/patients/create/${userId}`,
+//        `http://localhost:8080/patients/create/${userId}`,
         patient,
         {
           headers: {
