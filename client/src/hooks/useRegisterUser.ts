@@ -11,6 +11,8 @@ const useRegisterUser = () => {
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState(false);
 
+  const almacenar = () =>{
+  }
   const registerUser = async (payload: RegisterUserPayload) => {
     setLoading(true);
     setError(null);
@@ -25,13 +27,22 @@ const useRegisterUser = () => {
             'Content-Type': 'application/json',
           },
         }
+        
       );
-
+      console.log("hola", response);
+      
+    
+      const almacenar = localStorage.setItem('userId', response.data.userId)
+      console.log(almacenar);
+      
       if (response.status === 200) { // Código de estado para éxito
+        
+        
         setSuccess(true);
       } else {
         setError('Error inesperado: ' + response.statusText);
       }
+      
     } catch (err) {
       // Verificar si el error es una instancia de Error
       if (axios.isAxiosError(err)) {

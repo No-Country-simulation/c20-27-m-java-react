@@ -63,8 +63,10 @@ const PrincipalModal = () => {
     }
   };
 
+  // Corregir el manejo de la navegación para el registro
   const handleRegisterClick = () => {
-  
+    setShowModal(false);
+    navigate("/register");
   };
 
   const handleChangeUserName = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -157,3 +159,4 @@ const PrincipalModal = () => {
 };
 
 export default PrincipalModal;
+
