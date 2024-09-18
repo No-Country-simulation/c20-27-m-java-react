@@ -13,12 +13,15 @@ import Loading from "@/views/Loading";
 import PrincipalScreen from "@/views/PrincipalScreen";
 import Profile from "@/views/Profile";
 import OptionsRegister from "@/views/OptionsRegister";
+import UserForm from "@/components/UserForm";
 
 // Define las rutas
 const router = createBrowserRouter([
- 
+  {path: '/', 
+    element: <UserForm/>
+  },
   {
-    path: "/",
+    path: "login",
     element: <PrincipalScreen />,
     errorElement: <Error />,
   },
