@@ -14,7 +14,7 @@ const UserForm = () => {
     if (success) {
       alert("Usuario creado");
       setShowModal(false);
-      navigate("/home");
+      navigate("/login");
     }
   }, [success, navigate]);
 
