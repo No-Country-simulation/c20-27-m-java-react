@@ -28,7 +28,7 @@ const HeroImage = () => {
             className="w-full h-auto max-h-[80px]" // Ajuste de la sombra
           />
         </figure>
-        <div className="absolute -right-[50px] top-[15%] z-10 text-blue-100">
+        <div className="absolute right-[-55px] top-[15%] z-10 text-blue-100">
   <h2 className="w-[55%] text-lg font-bold">¿Buscas médicos especialistas?</h2>
   <p className="mt-2 w-[54%] text-xs">Concreta un turno con nuestros mejores médicos.</p>
 </div>

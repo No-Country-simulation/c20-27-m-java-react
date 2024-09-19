@@ -7,7 +7,7 @@ const Register = () => {
   const navigate = useNavigate()
 
   const closePage = () => {
-    navigate("/")
+    navigate("/login")
   }
 
   return (

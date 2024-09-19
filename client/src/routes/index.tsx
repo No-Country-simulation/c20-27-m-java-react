@@ -21,7 +21,7 @@ const router = createBrowserRouter([
     element: <UserForm/>
   },
   {
-    path: "login",
+    path: "/login",
     element: <PrincipalScreen />,
     errorElement: <Error />,
   },

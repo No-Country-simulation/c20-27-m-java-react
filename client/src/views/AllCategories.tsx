@@ -2,7 +2,7 @@ import { ArrowIcon, DentistryIcon, CardiologyIcon, PulmonologyIcon, GeneralIcon,
 import { Link, NavLink, useNavigate } from "react-router-dom";
 import Header from "./Header";
 import NotificationBell from "@/components/NotificationBell";
-import FooterPrincipal from "@/components/PrincipalFooter";
+import Footer from "@/components/Footer";
 import useSpecialties from "@/hooks/useSpecialties";
 
 interface HealthSpecialty {
@@ -47,7 +47,7 @@ const AllCategories = () => {
           </div>
 
           {/* Muestra de las especialidades con íconos más grandes */}
-          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4 mt-20">
             {healthSpecialties.map(({ label, icon, href, backgroundColor }) => (
               <div key={label} className="flex flex-col items-center">
                 <NavLink
@@ -68,7 +68,7 @@ const AllCategories = () => {
         </section>
       </main>
 
-      <FooterPrincipal />
+      <Footer/>
     </div>
   );
 };

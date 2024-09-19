@@ -6,58 +6,46 @@ import { useCreatePatient } from "@/hooks/useCreatePatient";
 
 const PatientRegistrationForm: React.FC = () => {
   
-  // Estados para los campos del formulario
   const [name, setName] = useState("");
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
   const [telephone, setTelephone] = useState("");
   const [address, setAddress] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
-  const [successMessage, setSuccessMessage] = useState("");
-  const { createPatient, error, loading, success } = useCreatePatient();
+  const { createPatient, error, loading } = useCreatePatient();
   
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if(
-      !name ||
-      !lastName ||
-     !email ||
-     !telephone ||
-     !address
-    )
-    {
+    
+    if (!name || !lastName || !email || !telephone || !address) {
       setErrorMessage("Todos los campos son requeridos.");
       return;
-    };
+    }
 
     const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if(
-      !emailPattern.test(email)) {
-        setErrorMessage("El correo electrónico no es válido.");
-        return;
-      }
+    if (!emailPattern.test(email)) {
+      setErrorMessage("El correo electrónico no es válido.");
+      return;
+    }
 
-    // Llamar a la función registerPatient pasando los datos del paciente y el username
-    setErrorMessage("")
-    await createPatient({name, lastName, email, telephone, address});
-    if(success){
+    setErrorMessage("");
+    
+    try {
+      await createPatient({ name, lastName, email, telephone, address });
+      alert("Paciente creado exitosamente");
       setName("");
       setLastName("");
       setEmail("");
       setTelephone("");
       setAddress("");
-      setSuccessMessage("Paciente creado exitosamente");
-    }
-    else if (error) {
-      setSuccessMessage(""),
-      setErrorMessage("")
+    } catch (err) {
+      setErrorMessage("Error al crear el paciente.");
     }
   };
 
   return (
     <div className="mx-auto max-w-md p-4">
       <form className="mb-3 mt-5 flex w-full flex-col gap-4" onSubmit={handleSubmit}>
-        {/* Campo para Nombre de Usuario */}
         <Input
           iconSrc={UserIcon}
           placeholder="Nombre"
@@ -99,8 +87,7 @@ const PatientRegistrationForm: React.FC = () => {
           onChange={e => setAddress(e.target.value)}
         />
 
-        {/* Botón para Enviar */}
-        <div className="mb-4 flex justify-center">
+        <div className="mb-2 flex justify-center">
           <Button
             label={loading ? "Creando..." : "Crear Paciente"}
             className="w-full max-w-xs"
@@ -109,12 +96,9 @@ const PatientRegistrationForm: React.FC = () => {
         </div>
       </form>
 
-      {/* Mensajes de error o éxito */}
-      {errorMessage && <p className="mt-3 text-center font-bold text-red-500">{errorMessage}</p>}
-      {successMessage && <p className="mt-3 text-center font-bold text-green-500">{successMessage}</p>}
+      {errorMessage && <p className="mt-1 text-center font-bold text-red-500">{errorMessage}</p>}
     </div>
   );
 };
 
 export default PatientRegistrationForm;
-

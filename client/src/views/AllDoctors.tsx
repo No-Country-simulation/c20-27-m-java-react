@@ -6,7 +6,7 @@ import { Link, useLocation } from "react-router-dom";
 import Header from "./Header";
 import NotificationBell from "@/components/NotificationBell";
 import Navigation from "@/components/Navigation";
-import FooterPrincipal from "@/components/PrincipalFooter";
+import Footer from "@/components/Footer";
 
 const AllDoctors = () => {
   const location = useLocation();
@@ -56,9 +56,8 @@ const AllDoctors = () => {
           />
         </section>
       </main>
-      <footer className="w-full relative bottom-0 left-0 bg-gray-800 text-white -mt-3">
-        <FooterPrincipal />
-      </footer>
+      
+        <Footer />
     </div>
   );
 };
