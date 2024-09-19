@@ -18,9 +18,21 @@ const FormularioCitas = () => {
     });
   };
 
+  // formatear fecha y hora
+  const formatDateTime = (dateTime: string) => {
+    const date = new Date(dateTime);
+    return date.toISOString().split('.')[0]; 
+  };
+
   const handleSubmitForm = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    createAppointment(formData);
+
+    const formattedFormData = {
+      ...formData,
+      dateTime: formatDateTime(formData.dateTime),
+    };
+
+    createAppointment(formattedFormData);
   };
 
   return (

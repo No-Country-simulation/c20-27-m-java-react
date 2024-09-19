@@ -45,7 +45,7 @@ const AllDoctors = () => {
           />
         </section>
       </main>
-      <footer className="w-full absolute bottom-0 left-0 bg-gray-800 text-white">
+      <footer className="w-full relative bottom-0 left-0 bg-gray-800 text-white -mt-3">
         <FooterPrincipal />
       </footer>
     </div>

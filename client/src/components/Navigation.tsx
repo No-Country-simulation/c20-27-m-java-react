@@ -16,11 +16,11 @@ const Navigation: FC<NavigationProps> = ({ onSpecialtyChange }) => {
           role="button"
           aria-label="All specialties"
           className="cursor-pointer rounded-full border-2 border-black bg-gray-100 px-4 py-2 text-center text-base font-semibold text-gray-800 transition-colors duration-300 ease-in-out hover:bg-gray-800 hover:text-white"
-          onClick={() => onSpecialtyChange("All")}
+          onClick={() => onSpecialtyChange("Todas")}
         >
-          All
+          Todas
         </li>
-        {specialties.map(especialidad => (
+        {specialties.map((especialidad) => (
           <li
             key={especialidad}
             role="button"
@@ -37,5 +37,3 @@ const Navigation: FC<NavigationProps> = ({ onSpecialtyChange }) => {
 };
 
 export default Navigation;
-
-

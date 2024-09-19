@@ -1,6 +1,6 @@
-import React, { useState } from "react"
-import Input from "@/components/RegisterEntry"
-import Button from "@/components/Button"
+import React, { useState } from "react";
+import Input from "@/components/RegisterEntry";
+import Button from "@/components/Button";
 import {
   UserIcon,
   LastNameIcon,
@@ -8,18 +8,18 @@ import {
   TelephoneIcon,
   SpecializationIcon,
   AddressIcon,
-} from "@/assets/icons"
-import { useCreateDoctor } from "@/hooks/useCreateDoctor"
+} from "@/assets/icons";
+import { useCreateDoctor } from "@/hooks/useCreateDoctor";
 
 const Formulario = () => {
-  const [nombre, setNombre] = useState("")
-  const [apellido, setApellido] = useState("")
-  const [especialidad, setEspecialidad] = useState("")
-  const [email, setEmail] = useState("")
-  const [telefono, setTelefono] = useState("")
-  const [direccion, setDireccion] = useState("")
-  const [errorMessage, setErrorMessage] = useState("")
-  const [successMessage, setSuccessMessage] = useState("")
+  const [nombre, setNombre] = useState("");
+  const [apellido, setApellido] = useState("");
+  const [especialidad, setEspecialidad] = useState("");
+  const [email, setEmail] = useState("");
+  const [telefono, setTelefono] = useState("");
+  const [direccion, setDireccion] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
+  const [successMessage, setSuccessMessage] = useState("");
   const [success, loading, error, setCreateDoctor] = useCreateDoctor({
     nombre,
     apellido,
@@ -27,46 +27,49 @@ const Formulario = () => {
     email,
     telefono,
     direccion,
-  })
+  });
 
   const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault()
+    e.preventDefault();
 
     if (!nombre || !apellido || !especialidad || !email || !telefono) {
-      setErrorMessage("Todos los campos son requeridos.")
-      return
+      setErrorMessage("Todos los campos son requeridos.");
+      return;
     }
 
-    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailPattern.test(email)) {
-      setErrorMessage("El correo electrónico no es válido.")
-      return
+      setErrorMessage("El correo electrónico no es válido.");
+      return;
     }
 
-    const phonePattern = /^[0-9]{10}$/
+    const phonePattern = /^[0-9]{10}$/;
     if (!phonePattern.test(telefono)) {
-      setErrorMessage("El número telefónico debe tener 10 dígitos.")
-      return
+      setErrorMessage("El número telefónico debe tener 10 dígitos.");
+      return;
     }
 
-    setErrorMessage("")
+    setErrorMessage("");
 
     // Llamada al hook useCreateDoctor para crear el doctor
-    await setCreateDoctor()
+    await setCreateDoctor();
 
     if (success) {
       // Limpia los campos del formulario
-      setNombre("")
-      setApellido("")
-      setEspecialidad("")
-      setEmail("")
-      setTelefono("")
-      setDireccion("")
-      setSuccessMessage("Doctor creado exitosamente")
-    } else if (error) {
-      setSuccessMessage("")
-    }
-  }
+      setNombre("");
+      setApellido("");
+      setEspecialidad("");
+      setEmail("");
+      setTelefono("");
+      setDireccion("");
+        
+        // Mostrar mensaje de éxito y luego ocultarlo
+        setSuccessMessage("Doctor creado exitosamente");
+        setTimeout(() => {
+          setSuccessMessage("");
+        }, 3000); // Ocultar después de 3 segundos
+      }
+  };
 
   return (
     <div>
@@ -107,6 +110,12 @@ const Formulario = () => {
             <option value="Oftalmología">Oftalmología</option>
             <option value="Cardiología">Cardiología</option>
             <option value="Odontología">Odontología</option>
+            <option value="Neumología">Neumología</option>
+            <option value="Gastroenterología">Gastroenterología</option>
+            <option value="General">General</option>
+            <option value="Vacunación">Vacunación</option>
+            <option value="Laboratorio">Laboratorio</option>
+            <option value="Neurología">Neurología</option>
             {/* Agrega más opciones aquí */}
           </select>
         </div>
@@ -141,7 +150,7 @@ const Formulario = () => {
       {successMessage && <p className="text-green-500">{successMessage}</p>}
       {error && <p className="text-red-500">{error.message}</p>}
     </div>
-  )
-}
+  );
+};
 
-export default Formulario
+export default Formulario;

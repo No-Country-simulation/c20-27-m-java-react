@@ -1,7 +1,7 @@
 import { useState } from "react";
 
 interface AppointmentData {
-  doctorId: string; // Cambiado a string
+  doctorId: string; 
   patientId: string; // Cambiado a string
   dateTime: string;
 }
@@ -15,13 +15,14 @@ export const useCreateAppointment = () => {
     setLoading(true);
     setError(null);
     setSuccessMessage(null);
-
+console.log(appointmentData)
     try {
       const response = await fetch('https://c20-27-m-java-react-production-b1fb.up.railway.app/appointments', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(appointmentData),
       });
+
 
       if (!response.ok) {
         const errorData = await response.json();
@@ -30,6 +31,7 @@ export const useCreateAppointment = () => {
       }
 
       const data = await response.json();
+      
       console.log("Respuesta del servidor:", data);
       setSuccessMessage('Cita creada con éxito');
     } catch (err: any) {
