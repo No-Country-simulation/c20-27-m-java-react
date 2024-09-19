@@ -28,7 +28,9 @@ const DoctorsList = ({ selectedLastName, selectedSpecialty }: DoctorsProps) => {
   useEffect(() => {
     const fetchDoctors = async () => {
       try {
-        const response = await fetch("https://c20-27-m-java-react-production-b1fb.up.railway.app/doctors");
+        const response = await fetch(
+          "https://c20-27-m-java-react-production-b1fb.up.railway.app/doctors"
+        );
         if (!response.ok) {
           throw new Error("Network response was not ok");
         }
@@ -56,9 +58,14 @@ const DoctorsList = ({ selectedLastName, selectedSpecialty }: DoctorsProps) => {
     setIsModalOpen(false);
   };
 
-  const filteredDoctors = doctors.filter(doctor =>
-    (selectedLastName === "" || doctor.apellido.toLowerCase().includes(selectedLastName.toLowerCase())) &&
-    (selectedSpecialty === "" || doctor.especialidad.toLowerCase() === selectedSpecialty.toLowerCase())
+  // Modifica la lógica de filtrado para incluir "Todas"
+  const filteredDoctors = doctors.filter(
+    (doctor) =>
+      (selectedLastName === "" ||
+        doctor.apellido.toLowerCase().includes(selectedLastName.toLowerCase())) &&
+      (selectedSpecialty === "Todas" ||
+        selectedSpecialty === "" ||
+        doctor.especialidad.toLowerCase() === selectedSpecialty.toLowerCase())
   );
 
   return (
@@ -66,7 +73,9 @@ const DoctorsList = ({ selectedLastName, selectedSpecialty }: DoctorsProps) => {
       {loading && <p className="text-gray-800">Cargando...</p>}
       {error && <p className="text-red-500 font-bold">{error}</p>}
       {!loading && !error && filteredDoctors.length === 0 && (
-        <p className="text-gray-800">No hay doctores disponibles para la especialidad "{selectedSpecialty}".</p>
+        <p className="text-gray-800">
+          No hay doctores disponibles para la especialidad "{selectedSpecialty}".
+        </p>
       )}
       {!loading && !error && filteredDoctors.length > 0 && (
         filteredDoctors.map((doctor) => (

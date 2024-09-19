@@ -13,23 +13,18 @@ interface HealthSpecialty {
 }
 
 const healthSpecialties: HealthSpecialty[] = [
-  { label: "Odontología", icon: DentistryIcon, href: "/all-categories/dentistry", backgroundColor: "#DC9497" },
-  { label: "Cardiología", icon: CardiologyIcon, href: "/all-categories/cardiology", backgroundColor: "#93C19E" },
-  { label: "Neumología", icon: PulmonologyIcon, href: "/all-categories/pulmonology", backgroundColor: "#F5AD7E" },
-  { label: "General", icon: GeneralIcon, href: "/all-categories/general", backgroundColor: "#ACA1CD" },
-  { label: "Neurología", icon: NeurologyIcon, href: "/all-categories/neurology", backgroundColor: "#4D9B91" },
-  { label: "Gastroenterología", icon: GastroenterologyIcon, href: "/all-categories/gastroenterology", backgroundColor: "#352261" },
-  { label: "Laboratorio", icon: LaboratoryIcon, href: "/all-categories/laboratory", backgroundColor: "#DEB6B5" },
-  { label: "Vacunación", icon: VaccinationIcon, href: "/all-categories/vaccination", backgroundColor: "#89CCDB" },
+  { label: "Odontología", icon: DentistryIcon, href: "/all-doctors?specialty=Odontología", backgroundColor: "#DC9497" },
+  { label: "Cardiología", icon: CardiologyIcon, href: "/all-doctors?specialty=Cardiología", backgroundColor: "#93C19E" },
+  { label: "Neumología", icon: PulmonologyIcon, href: "/all-doctors?specialty=Neumología", backgroundColor: "#F5AD7E" },
+  { label: "General", icon: GeneralIcon, href: "/all-doctors?specialty=General", backgroundColor: "#ACA1CD" },
+  { label: "Neurología", icon: NeurologyIcon, href: "/all-doctors?specialty=Neurología", backgroundColor: "#4D9B91" },
+  { label: "Gastroenterología", icon: GastroenterologyIcon, href: "/all-doctors?specialty=Gastroenterología", backgroundColor: "#352261" },
+  { label: "Laboratorio", icon: LaboratoryIcon, href: "/all-doctors?specialty=Laboratorio", backgroundColor: "#DEB6B5" },
+  { label: "Vacunación", icon: VaccinationIcon, href: "/all-doctors?specialty=Vacunación", backgroundColor: "#89CCDB" },
 ];
 
 const AllCategories = () => {
-  const { specialties, error: specialtiesError } = useSpecialties();
   const navigate = useNavigate(); // Hook para redirección
-
-  const handleSpecialtySelect = (label: string) => {
-    navigate(`/all-doctors?specialty=${encodeURIComponent(label)}`);
-  };
 
   return (
     <div className="relative min-h-screen flex flex-col">
@@ -51,16 +46,12 @@ const AllCategories = () => {
             <h2 className="text-xl font-semibold text-gray-800">Lista de especialidades</h2>
           </div>
 
-          {/* Mensaje de error si falla la carga de especialidades */}
-          {specialtiesError && <p className="text-center text-red-500">{specialtiesError}</p>}
-
           {/* Muestra de las especialidades con íconos más grandes */}
           <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
             {healthSpecialties.map(({ label, icon, href, backgroundColor }) => (
               <div key={label} className="flex flex-col items-center">
                 <NavLink
                   to={href}
-                  onClick={() => handleSpecialtySelect(label)} // Redirige a /all-doctors con el parámetro de consulta
                   className="flex items-center justify-center rounded-[8px] mb-1"
                   style={{ backgroundColor: backgroundColor, width: '60px', height: '60px' }} // Tamaño del contenedor
                 >

@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import useRegisterUser from "@/hooks/useRegisterUser"; // Actualiza la ruta si es necesario
+import useRegisterUser from "@/hooks/useRegisterUser";
 import logoAzul from "@/assets/logoAzul.png";
 
 const UserForm = () => {
@@ -12,11 +12,27 @@ const UserForm = () => {
 
   useEffect(() => {
     if (success) {
-      alert("Usuario creado");
+      alert("Usuario creado con éxito");
       setShowModal(false);
-      navigate("/login");
+      navigate("/login"); // Redirige al formulario de inicio de sesión
     }
   }, [success, navigate]);
+
+  useEffect(() => {
+    if (error) {
+      // Maneja el error, puede ser un string o un objeto
+      if (typeof error === 'string') {
+        if (error === "User already exists") {
+          alert("El usuario ya existe. Redirigiendo a la página de inicio de sesión...");
+          navigate("/login");
+        } else {
+          alert("Hubo un error al crear el usuario. Por favor, inténtalo de nuevo.");
+        }
+      } else {
+        alert("Hubo un error al crear el usuario. Por favor, inténtalo de nuevo.");
+      }
+    }
+  }, [error, navigate]);
 
   const handleRegisterClick = async () => {
     if (userName.trim() === "" || password.trim() === "") {
@@ -39,6 +55,14 @@ const UserForm = () => {
     if (e.target === e.currentTarget) {
       setShowModal(false);
     }
+  };
+
+  const handleLoginRedirect = () => {
+    if (userName.trim() === "" || password.trim() === "") {
+      alert("Por favor, ingresa un nombre de usuario y una contraseña antes de iniciar sesión.");
+      return;
+    }
+    navigate("/login");
   };
 
   if (!showModal) return null;
@@ -67,7 +91,7 @@ const UserForm = () => {
               <span className="text-gray-600">Tech</span>
             </h2>
             <p className="text-xl font-medium text-gray-600 mb-1 text-center">
-              ¡Bienvenido(a)!
+              ¡Bienvenido(a)! 
             </p>
             <span className="text-md font-medium text-gray-800 mb-3 mt-3 text-center">
               Crea un usuario y optimiza tu experiencia de salud.
@@ -103,7 +127,7 @@ const UserForm = () => {
                 </button>
                 <button
                   type="button"
-                  onClick={() => navigate("/login")}
+                  onClick={handleLoginRedirect}
                   className="inline-flex items-center px-4 py-1.5 bg-[#1c2a3ad2] text-white rounded-md font-semibold hover:bg-gray-500 focus:outline-none focus:ring-2 focus:ring-[#1c2a3a]"
                 >
                   Iniciar sesión
@@ -118,7 +142,3 @@ const UserForm = () => {
 };
 
 export default UserForm;
-
-
-
-

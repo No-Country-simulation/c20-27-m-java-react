@@ -3,9 +3,10 @@ import useSpecialties from "@/hooks/useSpecialties";
 
 interface NavigationProps {
   onSpecialtyChange: (specialty: string) => void;
+  selectedSpecialty: string; // Nueva prop para la especialidad seleccionada
 }
 
-const Navigation: FC<NavigationProps> = ({ onSpecialtyChange }) => {
+const Navigation: FC<NavigationProps> = ({ onSpecialtyChange, selectedSpecialty }) => {
   const { specialties, error } = useSpecialties();
 
   return (
@@ -15,17 +16,21 @@ const Navigation: FC<NavigationProps> = ({ onSpecialtyChange }) => {
         <li
           role="button"
           aria-label="All specialties"
-          className="cursor-pointer rounded-full border-2 border-black bg-gray-100 px-4 py-2 text-center text-base font-semibold text-gray-800 transition-colors duration-300 ease-in-out hover:bg-gray-800 hover:text-white"
-          onClick={() => onSpecialtyChange("All")}
+          className={`cursor-pointer rounded-full border-2 px-4 py-2 text-center text-base font-semibold transition-colors duration-300 ease-in-out ${
+            selectedSpecialty === "Todas" ? "border-black bg-gray-800 text-white" : "border-black bg-gray-100 text-gray-800 hover:bg-gray-800 hover:text-white"
+          }`}
+          onClick={() => onSpecialtyChange("Todas")}
         >
-          All
+          Todas
         </li>
-        {specialties.map(especialidad => (
+        {specialties.map((especialidad) => (
           <li
             key={especialidad}
             role="button"
             aria-label={`Specialty: ${especialidad}`}
-            className="cursor-pointer rounded-full border-2 border-black bg-gray-100 px-4 py-2 text-center text-base font-semibold text-gray-800 transition-colors duration-300 ease-in-out hover:bg-gray-800 hover:text-white"
+            className={`cursor-pointer rounded-full border-2 px-4 py-2 text-center text-base font-semibold transition-colors duration-300 ease-in-out ${
+              selectedSpecialty === especialidad ? "border-black bg-gray-800 text-white" : "border-black bg-gray-100 text-gray-800 hover:bg-gray-800 hover:text-white"
+            }`}
             onClick={() => onSpecialtyChange(especialidad)}
           >
             {especialidad}
@@ -37,5 +42,4 @@ const Navigation: FC<NavigationProps> = ({ onSpecialtyChange }) => {
 };
 
 export default Navigation;
-
 
