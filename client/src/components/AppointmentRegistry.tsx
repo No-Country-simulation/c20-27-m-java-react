@@ -6,10 +6,10 @@ import { FormEvent } from "react";
 const FormularioCitas = () => {
   const [formData, setFormData] = useState({
     doctorId: '1',  // Asegúrate de que estos sean strings
-    patientId: '1', // Asegúrate de que estos sean strings
+    patientId: '0', // Asegúrate de que estos sean strings
     dateTime: '',
   });
-  const { createAppointment, loading, error, successMessage } = useCreateAppointment();
+  const { createAppointment, loading, error, successMessage, } = useCreateAppointment();
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData({
@@ -18,7 +18,6 @@ const FormularioCitas = () => {
     });
   };
 
-  // formatear fecha y hora
   const formatDateTime = (dateTime: string) => {
     const date = new Date(dateTime);
     return date.toISOString().split('.')[0]; 
@@ -26,14 +25,15 @@ const FormularioCitas = () => {
 
   const handleSubmitForm = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-
     const formattedFormData = {
       ...formData,
       dateTime: formatDateTime(formData.dateTime),
     };
-
+    
     createAppointment(formattedFormData);
-  };
+    
+
+};
 
   return (
     <div className="mx-auto max-w-md rounded-lg border bg-white p-4 shadow-lg">

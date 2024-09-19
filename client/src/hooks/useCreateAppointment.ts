@@ -22,16 +22,14 @@ console.log(appointmentData)
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(appointmentData),
       });
-
-
-      if (!response.ok) {
+if (!response.ok) {
         const errorData = await response.json();
         console.error("Error desde el servidor:", errorData);
-        throw new Error(errorData.message || 'Error al crear la cita');
+        throw new Error(errorData.message || "Error al crear la cita");
       }
 
       const data = await response.json();
-      
+
       console.log("Respuesta del servidor:", data);
       setSuccessMessage('Cita creada con éxito');
     } catch (err: any) {
@@ -40,6 +38,10 @@ console.log(appointmentData)
     } finally {
       setLoading(false);
     }
+
+
+
+
   };
 
   return { createAppointment, loading, error, successMessage };
